@@ -1,0 +1,74 @@
+.ui-account-tree {}
+.ui-account-tree-view {
+    position: relative;
+}
+.ui-account-tree-title {
+    padding-left: 15px;
+    cursor: default;
+    font-weight: bold;
+    line-height: 25px;
+}
+.ui-account-tree-title-selected {
+    background-color: #E9E9E9;
+    font-weight: bold;
+}
+.ui-account-tree-view-desire {
+    margin-left: -15px;
+    background: #B1CCE7;
+    background-image: none;
+    color: #FFF;
+    font-weight: bold;
+}
+.ui-account-tree-view-wn {
+    position: absolute;
+    right: 10px;
+    top: 2px;
+}
+.ui-account-tree-view-text-search {
+    color: #F00;
+    background: #FF0;
+}
+.ui-account-tree-view-empty {
+    color: #999;
+}
+.ui-account-tree-view-important {
+    color: #F00;
+}
+.ui-account-tree-view-highlight {
+    background: #FF0;
+}
+.ui-account-tree-view-highlight-tmp {
+    background: #FF0;
+    color: #F00;
+}
+
+.ui-account-tree-view-editor {
+    position: relative;
+    height: 18px;
+    border: 1px solid transparent;
+    _border-color: #FFF;
+}
+.ui-account-tree-view-selected .ui-account-tree-view-editor {
+    _border-color: #E8E9E9;
+}
+.ui-account-tree-view-highlight .ui-account-tree-view-editor {
+    _border-color: #FF0;
+}
+.ui-account-tree-view-highlight-tmp .ui-account-tree-view-editor {
+    _border-color: #FF0;
+}
+.ui-account-tree-view-editor-button {
+    position: absolute;
+    display: none;
+    top: 1px;
+    right: 1px;
+    width: 16px;
+    height: 16px;
+    background: url(img/ecui.gif?$Version$) -85px -220px no-repeat;
+}
+.ui-account-tree-view-edit .ui-account-tree-view-editor {
+    border-color: #FFCC33;
+}
+.ui-account-tree-view-edit .ui-account-tree-view-editor-button {
+    display: block;
+}

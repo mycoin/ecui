@@ -1,0 +1,81 @@
+<!--*
+ * Copyright 2012 Baidu Inc. All rights reserved.
+ * 
+ * path:    build.xml
+ * desc:    前端构建配置
+ * author:  liuronghan(liuronghan@baidu.com)
+ * date:   2012/12/5
+ *-->
+<project name="ecui-2.0.1" default="release">
+
+    <!-- 定义环境-->
+    <property name="java.home" value="${env.JAVA_HOME}"/>
+    <property name="ant.home" value="${env.ANT_HOME}"/>
+    <property name="ecui.version" value="2.1"/>
+    
+    <!-- 定义目录 -->
+    <property name="path.root" location="./" />
+    <property name="path.src" location="./src/" />
+    <property name="path.tools" location="./tools/" />
+    <property name="path.build" location="./release/" />
+
+    <!-- 定义程序-->
+    <property name="file.compressor" location="${path.tools}/yuicompressor.jar" />
+    <property name="file.rhino" location="${path.tools}/rhino.jar" />
+    <property name="file.smarty" location="${path.tools}/smarty4j.jar" />
+    <property name="file.webpacker" location="${path.tools}/webpacker.jar" />
+
+    <!-- ECUI压缩 -->
+    <target name="release">
+        <concat destfile="${path.build}/ecui-${ecui.version}-source.js" outputencoding="UTF-8" encoding="UTF-8" fixlastline="yes" eol="crlf">
+            <filelist dir="${path.src}" files="ecui.js"/>
+            <filelist dir="${path.src}" files="adapter.js"/>
+            <filelist dir="${path.src}" files="core.js"/>
+            <filelist dir="${path.src}" files="control.js"/>
+            <filelist dir="${path.src}" files="input-control.js"/>
+            <filelist dir="${path.src}" files="button.js"/>
+            <filelist dir="${path.src}" files="scrollbar.js"/>
+            <filelist dir="${path.src}" files="panel.js"/>
+            <filelist dir="${path.src}" files="items.js"/>
+            <filelist dir="${path.src}" files="checkbox.js"/>
+            <filelist dir="${path.src}" files="radio.js"/>
+            <filelist dir="${path.src}" files="select.js"/>
+            <filelist dir="${path.src}" files="label.js"/>
+            <filelist dir="${path.src}" files="form.js"/>
+            <filelist dir="${path.src}" files="tree-view.js"/>
+            <filelist dir="${path.src}" files="month-view.js"/>
+            <filelist dir="${path.src}" files="table.js"/>
+            <filelist dir="${path.src}" files="locked-table.js"/>
+            <filelist dir="${path.src}" files="messagebox.js" />
+        </concat>       
+        <apply executable="java" parallel="false">
+            <fileset dir="${path.build}/" includes="ecui-${ecui.version}-source.js" />
+            <arg line="-jar" />
+            <arg path="${file.compressor}" />
+            <arg line="--charset utf-8" />
+            <arg line="-o ${path.build}/ecui-${ecui.version}-min.js" />
+            <srcfile />
+        </apply>
+        
+        <concat destfile="${path.build}/ecui-ext-${ecui.version}-source.js" outputencoding="UTF-8" encoding="UTF-8" fixlastline="yes" eol="crlf">
+            <filelist dir="${path.src}/ext/" files="input.js" />
+            <filelist dir="${path.src}/ext/" files="pager.js" />
+            <filelist dir="${path.src}/ext/" files="calendar.js" />
+            <filelist dir="${path.src}/ext/" files="custom-checkboxs.js" />
+            <filelist dir="${path.src}/ext/" files="data-tree.js" />
+            <filelist dir="${path.src}/ext/" files="lite-table.js" />
+            <filelist dir="${path.src}/ext/" files="multi-select.js" />
+            <filelist dir="${path.src}/ext/" files="pop.js" />
+            <filelist dir="${path.src}/ext/" files="query-tab.js" />
+            <filelist dir="${path.src}/ext/" files="tip.js" />
+        </concat>
+        <apply executable="java" parallel="false">
+            <fileset dir="${path.build}/" includes="ecui-ext-${ecui.version}-source.js" />
+            <arg line="-jar" />
+            <arg path="${file.compressor}" />
+            <arg line="--charset utf-8" />
+            <arg line="-o ${path.build}/ecui-ext-${ecui.version}-min.js" />
+            <srcfile />
+        </apply>
+    </target>
+</project>

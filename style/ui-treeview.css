@@ -1,0 +1,41 @@
+.ui-treeview, 
+.ui-check-tree, 
+.ui-account-tree-view {
+    height: 20px;
+    padding-left: 15px;
+    margin-bottom: 3px;
+    font-size: 12px;
+    cursor: default;
+}
+.ui-treeview label, 
+.ui-check-tree label, 
+.ui-account-tree-view label {
+    margin: 0;
+    padding: 0;
+}
+.ui-treeview-expanded, 
+.ui-check-tree-expanded, 
+.ui-account-tree-view-expanded {
+    background: url(img/ecui.gif?$Version$) 2px -35px no-repeat;
+}
+.ui-treeview-collapsed, 
+.ui-check-tree-collapsed, 
+.ui-account-tree-view-collapsed {
+    background: url(img/ecui.gif?$Version$) 2px -95px no-repeat;
+}
+.ui-treeview-children, 
+.ui-check-tree-children, 
+.ui-account-tree-view-children {
+    margin-left: 15px;
+}
+.ui-treeview-selected, 
+.ui-check-tree-selected, 
+.ui-account-tree-view-selected {
+    background-color: #E9E9E9;
+    font-weight: bold;
+}
+
+.ui-input-tree-focus {
+    border:1px solid #0EA0EF !important;box-shadow:0 0 10px #09F;
+    outline:0; -webkit-box-shadow:0px 0px 10px #6FA1D9;
+}

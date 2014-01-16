@@ -1,0 +1,25 @@
+@import "./ui-button.css";
+@import "./ui-input.css";
+@import "./ui-scrollbar.css";
+@import "./ui-select.css";
+@import "./ui-checkbox.css";
+@import "./ui-radio.css";
+@import "./ui-form.css";
+@import "./ui-table.css";
+@import "./ui-treeview.css";
+@import "./ui-calendar.css";
+@import "./ui-pop.css";
+@import "./ui-messagebox.css";
+@import "./ui-pager.css";
+@import "./ui-query-tab.css";
+@import "./ui-multi-select.css";
+@import "./ui-area.css";
+@import "./ui-data-tree.css";
+@import "./ui-input-tree.css";
+@import "./ui-tip.css";
+@import "./ui-account-tree.css";
+@import "./ui-idea-editor.css";
+@import "./ui-custom.css";
+@import "./ui-message-bar.css";
+@import "./ui-suggest.css";
+/*每添加一个CSS必须追加到build.xml文件*/

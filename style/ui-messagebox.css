@@ -1,0 +1,26 @@
+.ui-messagebox {
+    width: 360px;
+}
+.ui-messagebox-text {
+    margin: 5px 15px;
+}
+.ui-messagebox-bottom {
+    margin-top: 10px;
+    text-align: right;
+}
+.ui-messagebox .ui-messagebox-warning-icon {
+    float: left;
+    width: 57px;
+    height: 59px;
+    margin-left: 5px;
+    background: url(img/ecui.gif?$Version$) -85px -340px no-repeat;
+}
+.ui-messagebox .ui-messagebox-warning-content {
+    display: table;
+    height: 60px;
+    margin-left: 80px;
+}
+.ui-messagebox .ui-messagebox-warning-text {
+    display: table-cell;
+    vertical-align: middle;
+}
