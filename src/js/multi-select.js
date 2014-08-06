@@ -12,7 +12,7 @@ MultiSelect - 定义多选下拉框行为的基本操作。
 </select>
 
 如果需要自定义特殊的选项效果，请按下列方法初始化:
-<div ecui="type:multi-select;name:test;option-size:3">
+< div ecui = "type:multi-select;name:test;option-size:3" >
     <!-- 这里放选项内容 -->
     <li ecui="value:值">文本</li>
     ...
@@ -22,7 +22,7 @@ Item属性
 _eInput - 多选项的INPUT对象
 */
 //{if 0}//
-(function () {
+(function() {
     var core = ecui,
         array = core.array,
         dom = core.dom,
@@ -49,8 +49,8 @@ _eInput - 多选项的INPUT对象
         UI_SELECT_CLASS = UI_SELECT.prototype,
         UI_SELECT_ITEM = UI_SELECT_CLASS.Item,
         UI_SELECT_ITEM_CLASS = UI_SELECT_ITEM.prototype;
-//{/if}//
-//{if $phase == "define"}//
+    //{/if}//
+    //{if $phase == "define"}//
     /**
      * 初始化多选下拉框控件。
      * options 对象支持的属性如下：
@@ -61,7 +61,7 @@ _eInput - 多选项的INPUT对象
      */
     //__gzip_original__UI_MULTI_SELECT
     //__gzip_original__UI_MULTI_SELECT_ITEM
-    var UI_MULTI_SELECT = ui.MultiSelect = 
+    var UI_MULTI_SELECT = ui.MultiSelect =
         inheritsControl(
             UI_SELECT,
             'ui-multi-select',
@@ -96,13 +96,13 @@ _eInput - 多选项的INPUT对象
          * @param {Object} options 初始化选项
          */
         UI_MULTI_SELECT_ITEM = UI_MULTI_SELECT_CLASS.Item =
-            inheritsControl(
+        inheritsControl(
             UI_SELECT_ITEM,
             'ui-multi-select-item',
-            function (el, options) {
+            function(el, options) {
                 var type = this.getTypes()[0],
                     o = createDom(type + '-icon');
-                
+
                 el.insertBefore(o, el.firstChild);
                 el = this._eInput =
                     options.parent.getMain().appendChild(setInput(null, options.parent.getName(), 'checkbox'));
@@ -112,7 +112,7 @@ _eInput - 多选项的INPUT对象
             }
         ),
         UI_MULTI_SELECT_ITEM_CLASS = UI_MULTI_SELECT_ITEM.prototype;
-//{else}//
+    //{else}//
     /**
      * 刷新显示区域的选中值列表。
      * @private
@@ -122,16 +122,15 @@ _eInput - 多选项的INPUT对象
     function UI_MULTI_SELECT_FLUSH_TEXT(control) {
         var tip;
         if (control) {
-            for (var i = 0, list = control.getItems(), o, text = []; o = list[i++]; ) {
+            for (var i = 0, list = control.getItems(), o, text = []; o = list[i++];) {
                 if (o.isSelected()) {
                     text.push(getText(o.getBody()));
                 }
             }
-            tip = '<span title="'+ text.join(',') +'">';
+            tip = '<span title="' + text.join(',') + '">';
             if (text.length == list.length && control._sTextAll) {
                 text = control._sTextAll;
-            }
-            else {
+            } else {
                 text = text.join(',');
                 if (control._nTextLen && text.length > control._nTextLen) {
                     text = text.substring(0, control._nTextLen) + '...';
@@ -153,7 +152,7 @@ _eInput - 多选项的INPUT对象
      *
      * @param {Event} event 事件对象
      */
-    UI_MULTI_SELECT_ITEM_CLASS.$click = function (event) {
+    UI_MULTI_SELECT_ITEM_CLASS.$click = function(event) {
         var par = this.getParent(),
             selected = par.getSelected().length;
 
@@ -168,7 +167,7 @@ _eInput - 多选项的INPUT对象
      * 页面卸载时将销毁所有的控件，释放循环引用，防止在 IE 下发生内存泄漏，$dispose 方法的调用不会受到 ondispose 事件返回值的影响。
      * @protected
      */
-    UI_MULTI_SELECT_ITEM_CLASS.$dispose = function () {
+    UI_MULTI_SELECT_ITEM_CLASS.$dispose = function() {
         this._eInput = null;
         UI_SELECT_ITEM_CLASS.$dispose.call(this);
     };
@@ -179,7 +178,7 @@ _eInput - 多选项的INPUT对象
      *
      * @return {boolean} 当前项是否选中
      */
-    UI_MULTI_SELECT_ITEM_CLASS.isSelected = function () {
+    UI_MULTI_SELECT_ITEM_CLASS.isSelected = function() {
         return this._eInput.checked;
     };
 
@@ -189,7 +188,7 @@ _eInput - 多选项的INPUT对象
      *
      * @param {boolean} status 当前项是否选中，默认选中
      */
-    UI_MULTI_SELECT_ITEM_CLASS.setSelected = function (status) {
+    UI_MULTI_SELECT_ITEM_CLASS.setSelected = function(status) {
         this._eInput.checked = status !== false;
         this.setClass(this.getPrimary() + (this._eInput.checked ? '-selected' : ''));
         UI_MULTI_SELECT_FLUSH_TEXT(this.getParent());
@@ -200,7 +199,7 @@ _eInput - 多选项的INPUT对象
      * 在 选项组接口 中，选项控件发生增加/减少操作时调用此方法。
      * @protected
      */
-    UI_MULTI_SELECT_CLASS.$alterItems = function () {
+    UI_MULTI_SELECT_CLASS.$alterItems = function() {
         UI_SELECT_CLASS.$alterItems.call(this);
         UI_MULTI_SELECT_FLUSH_TEXT(this);
     };
@@ -213,7 +212,7 @@ _eInput - 多选项的INPUT对象
      * @param {ecui.ui.Item} child 选项控件
      * @return {boolean} 是否允许增加子控件，默认允许
      */
-    UI_MULTI_SELECT_CLASS.$append = function (item) {
+    UI_MULTI_SELECT_CLASS.$append = function(item) {
         UI_SELECT_CLASS.$append.call(this, item);
         this.getMain().appendChild(setInput(item._eInput, this.getName()));
     };
@@ -235,7 +234,7 @@ _eInput - 多选项的INPUT对象
      *
      * @param {Event} event 事件对象
      */
-    UI_MULTI_SELECT_CLASS.$intercept = function (event) {
+    UI_MULTI_SELECT_CLASS.$intercept = function(event) {
         for (var control = event.getControl(); control; control = control.getParent()) {
             if (control instanceof UI_MULTI_SELECT_ITEM) {
                 return false;
@@ -254,7 +253,7 @@ _eInput - 多选项的INPUT对象
      * @param {Event} event 事件对象
      */
     UI_MULTI_SELECT_CLASS.$keydown = UI_MULTI_SELECT_CLASS.$keypress = UI_MULTI_SELECT_CLASS.$keyup =
-        function (event) {
+        function(event) {
             UI_INPUT_CONTROL_CLASS['$' + event.type].call(this, event);
             if (!this.$getSection('Options').isShow()) {
                 return false;
@@ -268,7 +267,7 @@ _eInput - 多选项的INPUT对象
                 }
                 return false;
             }
-        };
+    };
 
     /**
      * 鼠标在控件区域滚动滚轮事件的默认处理。
@@ -277,7 +276,7 @@ _eInput - 多选项的INPUT对象
      *
      * @param {Event} event 事件对象
      */
-    UI_MULTI_SELECT_CLASS.$mousewheel = function (event) {
+    UI_MULTI_SELECT_CLASS.$mousewheel = function(event) {
         var options = this.$getSection('Options');
         if (options.isShow()) {
             options.$mousewheel(event);
@@ -299,7 +298,7 @@ _eInput - 多选项的INPUT对象
      *
      * @param {Event} event 事件对象
      */
-    UI_MULTI_SELECT_CLASS.$activate = function (event) {
+    UI_MULTI_SELECT_CLASS.$activate = function(event) {
         var con = event.getControl();
         if (!(con instanceof UI_MULTI_SELECT_ITEM)) {
             UI_SELECT_CLASS.$activate.call(this, event);
@@ -311,7 +310,7 @@ _eInput - 多选项的INPUT对象
      * 页面刷新时，部分浏览器会回填输入框的值，需要在回填结束后触发设置控件的状态。
      * @protected
      */
-    UI_MULTI_SELECT_CLASS.$ready = function () {
+    UI_MULTI_SELECT_CLASS.$ready = function() {
         UI_MULTI_SELECT_FLUSH_TEXT(this);
     };
 
@@ -322,7 +321,7 @@ _eInput - 多选项的INPUT对象
      *
      * @param {ecui.ui.Item} child 选项控件
      */
-    UI_MULTI_SELECT_CLASS.$remove = function (item) {
+    UI_MULTI_SELECT_CLASS.$remove = function(item) {
         UI_SELECT_CLASS.$remove.call(this, item);
         this.getMain().removeChild(item._eInput);
     };
@@ -342,8 +341,8 @@ _eInput - 多选项的INPUT对象
      *
      * @return {Array} 选项控件列表
      */
-    UI_MULTI_SELECT_CLASS.getSelected = function () {
-        for (var i = 0, list = this.getItems(), o, result = []; o = list[i++]; ) {
+    UI_MULTI_SELECT_CLASS.getSelected = function() {
+        for (var i = 0, list = this.getItems(), o, result = []; o = list[i++];) {
             if (o.isSelected()) {
                 result.push(o);
             }
@@ -351,9 +350,10 @@ _eInput - 多选项的INPUT对象
         return result;
     };
 
-    UI_MULTI_SELECT_CLASS.getValue = function () {
+    UI_MULTI_SELECT_CLASS.getValue = function() {
         var items = this.getSelected(),
-            res = [], i, len;
+            res = [],
+            i, len;
         for (i = 0, len = items.length; i < len; i++) {
             res.push(items[i]._eInput.value);
         }
@@ -375,13 +375,13 @@ _eInput - 多选项的INPUT对象
      *
      * @param {Array} values 控件被选中的值列表
      */
-    UI_MULTI_SELECT_CLASS.setValue = function (values) {
-        for (var i = 0, list = this.getItems(), o; o = list[i++]; ) {
+    UI_MULTI_SELECT_CLASS.setValue = function(values) {
+        for (var i = 0, list = this.getItems(), o; o = list[i++];) {
             o.setSelected(indexOf(values, o._eInput.value) >= 0);
         }
         UI_MULTI_SELECT_FLUSH_TEXT(this);
     };
-//{/if}//
-//{if 0}//
+    //{/if}//
+    //{if 0}//
 })();
 //{/if}//

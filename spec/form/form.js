@@ -28,8 +28,8 @@ describe('控件初始化', {
         el.style.cssText = 'width:200px;height:200px';
         var control = ecui.create('Form', {main: el, parent: document.body});
 
-        value_of(control.getWidth()).should_be(200);
-        value_of(control.getHeight()).should_be(200);
+        value_of(control.getWidth()).should_be(202);
+        value_of(control.getHeight()).should_be(231);
         value_of(control.$getSection('Title').getBody().innerHTML).should_be('');
         value_of(control.getMain()).should_be(el);
         check(control);
@@ -45,8 +45,8 @@ describe('控件初始化', {
         el.firstChild.setAttribute('flag', '1');
         var control = ecui.create('Form', {main: el, parent: document.body});
 
-        value_of(control.getWidth()).should_be(200);
-        value_of(control.getHeight()).should_be(200);
+        value_of(control.getWidth()).should_be(202);
+        value_of(control.getHeight()).should_be(231);
         value_of(control.$getSection('Title').getBody().innerHTML).should_be('标题');
         value_of(control.getMain()).should_be(el);
         value_of(control.$getSection('Title').getMain().getAttribute('flag')).should_be('1');

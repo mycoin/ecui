@@ -1906,7 +1906,7 @@ Item属性
 _eInput - 多选项的INPUT对象
 */
 //{if 0}//
-(function () {
+(function() {
     var core = ecui,
         array = core.array,
         dom = core.dom,
@@ -1933,8 +1933,8 @@ _eInput - 多选项的INPUT对象
         UI_SELECT_CLASS = UI_SELECT.prototype,
         UI_SELECT_ITEM = UI_SELECT_CLASS.Item,
         UI_SELECT_ITEM_CLASS = UI_SELECT_ITEM.prototype;
-//{/if}//
-//{if $phase == "define"}//
+    //{/if}//
+    //{if $phase == "define"}//
     /**
      * 初始化多选下拉框控件。
      * options 对象支持的属性如下：
@@ -1945,11 +1945,11 @@ _eInput - 多选项的INPUT对象
      */
     //__gzip_original__UI_MULTI_SELECT
     //__gzip_original__UI_MULTI_SELECT_ITEM
-    var UI_MULTI_SELECT = ui.MultiSelect = 
+    var UI_MULTI_SELECT = ui.MultiSelect =
         inheritsControl(
             UI_SELECT,
             'ui-multi-select',
-            function (el, options) {
+            function(el, options) {
                 options.hide = true;
                 if (options.value) {
                     options.value = options.value.toString();
@@ -1966,10 +1966,12 @@ _eInput - 多选项的INPUT对象
                 }
                 if (options.maxSelected) {
                     this._nMaxSelected = options.maxSelected;
-                }
-                else if (!options.selectAllButton) {
+                } else if (!options.selectAllButton) {
                     //ui-multi-select-item-icon all
-                    this.add('<span class="all">全部</span>', 0, {selectAllButton: true, value: ""});
+                    this.add('<span class="all">全部</span>', 0, {
+                        selectAllButton: true,
+                        value: ""
+                    });
                     this._bSelectAllBtn = true;
                 }
                 if (options.tip) {
@@ -1997,20 +1999,19 @@ _eInput - 多选项的INPUT对象
          * @param {Object} options 初始化选项
          */
         UI_MULTI_SELECT_ITEM = UI_MULTI_SELECT_CLASS.Item =
-            inheritsControl(
+        inheritsControl(
             UI_SELECT_ITEM,
             'ui-multi-select-item',
-            function (el, options) {
+            function(el, options) {
                 var type = this.getTypes()[0],
                     o = createDom(type + '-icon');
-                
+
                 this._bSelectAllBtn = options.selectAllButton;
                 this._sTip = options.tip ? options.tip : getText(el);
 
                 el.insertBefore(o, el.firstChild);
-                el = this._eInput =
-                    options.parent.getMain().appendChild(setInput(null, options.parent.getName(), 'checkbox'));
-                if(options.value !== undefined) {
+                el = this._eInput = options.parent.getMain().appendChild(setInput(null, options.parent.getName(), 'checkbox'));
+                if (options.value !== undefined) {
                     //fixed by: liuronghan
                     el.value = options.value;
                 }
@@ -2018,8 +2019,8 @@ _eInput - 多选项的INPUT对象
             }
         ),
         UI_MULTI_SELECT_ITEM_CLASS = UI_MULTI_SELECT_ITEM.prototype;
-//{else}//
-    
+    //{else}//
+
     /**
      * 刷新全选按钮
      * @private
@@ -2034,8 +2035,7 @@ _eInput - 多选项的INPUT对象
         if (status === undefined) {
             status = control.getSelected().length === items.length - 1;
             items[0].$setSelected(status);
-        }
-        else {
+        } else {
             for (var i = 0, item; item = items[i]; i++) {
                 item.$setSelected(status);
             }
@@ -2051,16 +2051,15 @@ _eInput - 多选项的INPUT对象
     function UI_MULTI_SELECT_FLUSH_TEXT(control) {
         var tip;
         if (control) {
-            for (var i = 0, list = control.getItems(), o, text = []; o = list[i++]; ) {
+            for (var i = 0, list = control.getItems(), o, text = []; o = list[i++];) {
                 if (o.isSelected() && !o._bSelectAllBtn) {
                     text.push(o._sTip);
                 }
             }
-            tip = '<span title="'+ text.join(',') +'">';
+            tip = '<span title="' + text.join(',') + '">';
             if (text.length == list.length + (control._bSelectAllBtn ? -1 : 0) && control._sTextAll) {
                 text = control._sTextAll;
-            }
-            else {
+            } else {
                 text = text.join(',');
                 if (control._nTextLen && text.length > control._nTextLen) {
                     text = text.substring(0, control._nTextLen) + '...';
@@ -2082,7 +2081,7 @@ _eInput - 多选项的INPUT对象
      *
      * @param {Event} event 事件对象
      */
-    UI_MULTI_SELECT_ITEM_CLASS.$click = function (event) {
+    UI_MULTI_SELECT_ITEM_CLASS.$click = function(event) {
         var par = this.getParent(),
             selected = par.getSelected().length;
 
@@ -2091,8 +2090,7 @@ _eInput - 多选项的INPUT对象
             if (!par._nMaxSelected || par._nMaxSelected >= selected + 1) {
                 this.setSelected(true);
             }
-        }
-        else {
+        } else {
             if (!par._nMinSelected || par._nMinSelected <= selected - 1) {
                 this.setSelected(false);
             }
@@ -2104,7 +2102,7 @@ _eInput - 多选项的INPUT对象
      * 页面卸载时将销毁所有的控件，释放循环引用，防止在 IE 下发生内存泄漏，$dispose 方法的调用不会受到 ondispose 事件返回值的影响。
      * @protected
      */
-    UI_MULTI_SELECT_ITEM_CLASS.$dispose = function () {
+    UI_MULTI_SELECT_ITEM_CLASS.$dispose = function() {
         this._eInput = null;
         UI_SELECT_ITEM_CLASS.$dispose.call(this);
     };
@@ -2115,14 +2113,14 @@ _eInput - 多选项的INPUT对象
      *
      * @return {boolean} 当前项是否选中
      */
-    UI_MULTI_SELECT_ITEM_CLASS.isSelected = function () {
+    UI_MULTI_SELECT_ITEM_CLASS.isSelected = function() {
         return this._eInput.checked;
     };
 
     /**
      *
      */
-    UI_MULTI_SELECT_ITEM_CLASS.$setSelected = function (status) {
+    UI_MULTI_SELECT_ITEM_CLASS.$setSelected = function(status) {
         this._eInput.checked = status !== false;
         this.setClass(this.getPrimary() + (this._eInput.checked ? '-selected' : ''));
     }
@@ -2133,7 +2131,7 @@ _eInput - 多选项的INPUT对象
      *
      * @param {boolean} status 当前项是否选中，默认选中
      */
-    UI_MULTI_SELECT_ITEM_CLASS.setSelected = function (status) {
+    UI_MULTI_SELECT_ITEM_CLASS.setSelected = function(status) {
         this.$setSelected(status);
         UI_MULTI_SELECT_FLUSH_SELECTALL(this.getParent(), this._bSelectAllBtn ? status : undefined);
         UI_MULTI_SELECT_FLUSH_TEXT(this.getParent());
@@ -2144,7 +2142,7 @@ _eInput - 多选项的INPUT对象
      * 在 选项组接口 中，选项控件发生增加/减少操作时调用此方法。
      * @protected
      */
-    UI_MULTI_SELECT_CLASS.$alterItems = function () {
+    UI_MULTI_SELECT_CLASS.$alterItems = function() {
         UI_SELECT_CLASS.$alterItems.call(this);
         UI_MULTI_SELECT_FLUSH_SELECTALL(this);
         UI_MULTI_SELECT_FLUSH_TEXT(this);
@@ -2158,7 +2156,7 @@ _eInput - 多选项的INPUT对象
      * @param {ecui.ui.Item} child 选项控件
      * @return {boolean} 是否允许增加子控件，默认允许
      */
-    UI_MULTI_SELECT_CLASS.$append = function (item) {
+    UI_MULTI_SELECT_CLASS.$append = function(item) {
         UI_SELECT_CLASS.$append.call(this, item);
         this.getMain().appendChild(setInput(item._eInput, this.getName()));
     };
@@ -2180,7 +2178,7 @@ _eInput - 多选项的INPUT对象
      *
      * @param {Event} event 事件对象
      */
-    UI_MULTI_SELECT_CLASS.$intercept = function (event) {
+    UI_MULTI_SELECT_CLASS.$intercept = function(event) {
         for (var control = event.getControl(); control; control = control.getParent()) {
             if (control instanceof UI_MULTI_SELECT_ITEM) {
                 //当多选框选项为ECUI控件时无法释放拦截，此处fix一下，by hades
@@ -2201,7 +2199,7 @@ _eInput - 多选项的INPUT对象
      * @param {Event} event 事件对象
      */
     UI_MULTI_SELECT_CLASS.$keydown = UI_MULTI_SELECT_CLASS.$keypress = UI_MULTI_SELECT_CLASS.$keyup =
-        function (event) {
+        function(event) {
             UI_INPUT_CONTROL_CLASS['$' + event.type].call(this, event);
             if (!this.$getSection('Options').isShow()) {
                 return false;
@@ -2215,7 +2213,7 @@ _eInput - 多选项的INPUT对象
                 }
                 return false;
             }
-        };
+    };
 
     /**
      * 鼠标在控件区域滚动滚轮事件的默认处理。
@@ -2224,7 +2222,7 @@ _eInput - 多选项的INPUT对象
      *
      * @param {Event} event 事件对象
      */
-    UI_MULTI_SELECT_CLASS.$mousewheel = function (event) {
+    UI_MULTI_SELECT_CLASS.$mousewheel = function(event) {
         var options = this.$getSection('Options');
         if (options.isShow()) {
             options.$mousewheel(event);
@@ -2246,7 +2244,7 @@ _eInput - 多选项的INPUT对象
      *
      * @param {Event} event 事件对象
      */
-    UI_MULTI_SELECT_CLASS.$activate = function (event) {
+    UI_MULTI_SELECT_CLASS.$activate = function(event) {
         var con = event.getControl();
         if (!(con instanceof UI_MULTI_SELECT_ITEM)) {
             UI_SELECT_CLASS.$activate.call(this, event);
@@ -2258,12 +2256,12 @@ _eInput - 多选项的INPUT对象
      * 页面刷新时，部分浏览器会回填输入框的值，需要在回填结束后触发设置控件的状态。
      * @protected
      */
-    UI_MULTI_SELECT_CLASS.$ready = function () {
+    UI_MULTI_SELECT_CLASS.$ready = function() {
         UI_MULTI_SELECT_FLUSH_SELECTALL(this);
         UI_MULTI_SELECT_FLUSH_TEXT(this);
 
         if (this._bInitSelectAll) {
-            for (var i = 0, list = this.getItems(), o; o = list[i++]; ) {
+            for (var i = 0, list = this.getItems(), o; o = list[i++];) {
                 !o._bSelectAllBtn && o.setSelected(true);
             }
         }
@@ -2276,7 +2274,7 @@ _eInput - 多选项的INPUT对象
      *
      * @param {ecui.ui.Item} child 选项控件
      */
-    UI_MULTI_SELECT_CLASS.$remove = function (item) {
+    UI_MULTI_SELECT_CLASS.$remove = function(item) {
         UI_SELECT_CLASS.$remove.call(this, item);
         this.getMain().removeChild(item._eInput);
     };
@@ -2296,7 +2294,7 @@ _eInput - 多选项的INPUT对象
      * @param {number} width 宽度，如果不需要设置则将参数设置为等价于逻辑非的值
      * @param {number} height 高度，如果不需要设置则省略此参数
      */
-    UI_MULTI_SELECT_CLASS.getLayer = function () {
+    UI_MULTI_SELECT_CLASS.getLayer = function() {
         return this._uOptions;
     };
 
@@ -2306,8 +2304,8 @@ _eInput - 多选项的INPUT对象
      *
      * @return {Array} 选项控件列表
      */
-    UI_MULTI_SELECT_CLASS.getSelected = function () {
-        for (var i = 0, list = this.getItems(), o, result = []; o = list[i++]; ) {
+    UI_MULTI_SELECT_CLASS.getSelected = function() {
+        for (var i = 0, list = this.getItems(), o, result = []; o = list[i++];) {
             if (o.isSelected() && !o._bSelectAllBtn) {
                 result.push(o);
             }
@@ -2315,9 +2313,10 @@ _eInput - 多选项的INPUT对象
         return result;
     };
 
-    UI_MULTI_SELECT_CLASS.getValue = function () {
+    UI_MULTI_SELECT_CLASS.getValue = function() {
         var items = this.getSelected(),
-            res = [], i, len;
+            res = [],
+            i, len;
         for (i = 0, len = items.length; i < len; i++) {
             if (!items[i]._bSelectAllBtn) {
                 res.push(items[i]._eInput.value);
@@ -2326,14 +2325,14 @@ _eInput - 多选项的INPUT对象
         return res;
     };
 
-    UI_MULTI_SELECT_CLASS.selectAll = function () {
-        for (var i = 0, list = this.getItems(), o; o = list[i++]; ) {
+    UI_MULTI_SELECT_CLASS.selectAll = function() {
+        for (var i = 0, list = this.getItems(), o; o = list[i++];) {
             !o._bSelectAllBtn && o.setSelected(true);
         }
     };
 
-    UI_MULTI_SELECT_CLASS.isSelectAll = function () {
-        for (var i = 0, list = this.getItems(), o; o = list[i++]; ) {
+    UI_MULTI_SELECT_CLASS.isSelectAll = function() {
+        for (var i = 0, list = this.getItems(), o; o = list[i++];) {
             if (!o.isSelected()) {
                 return false;
             }
@@ -2356,22 +2355,21 @@ _eInput - 多选项的INPUT对象
      *
      * @param {Array/String} values 控件被选中的值列表
      */
-    UI_MULTI_SELECT_CLASS.setValue = function (values) {
+    UI_MULTI_SELECT_CLASS.setValue = function(values) {
         if ('[object Array]' != Object.prototype.toString.call(values)) {
             values = values.toString().split(',');
         }
-        for (var i = 0, list = this.getItems(), o; o = list[i++]; ) {
+        for (var i = 0, list = this.getItems(), o; o = list[i++];) {
             o.setSelected(indexOf(values, o._eInput.value) >= 0);
         }
         UI_MULTI_SELECT_FLUSH_SELECTALL(this);
         UI_MULTI_SELECT_FLUSH_TEXT(this);
     };
-//{/if}//
-//{if 0}//
+    //{/if}//
+    //{if 0}//
 })();
 //{/if}//
-
-(function () {
+(function() {
     var core = ecui,
         array = core.array,
         dom = core.dom,
@@ -2384,7 +2382,7 @@ _eInput - 多选项的INPUT对象
         createDom = dom.create,
         children = dom.children,
         moveElements = dom.moveElements,
-        getPosition  = dom.getPosition,
+        getPosition = dom.getPosition,
         inheritsControl = core.inherits,
         triggerEvent = core.triggerEvent,
         getView = util.getView,
@@ -2395,22 +2393,28 @@ _eInput - 多选项的INPUT对象
         UI_BUTTON = ui.Button,
         UI_BUTTON_CLASS = UI_BUTTON.prototype;
 
-    var UI_POP = ui.Pop = 
+    var UI_POP = ui.Pop =
         inheritsControl(
             UI_CONTROL,
             'ui-pop',
             null,
-            function (el, options) {
+            function(el, options) {
                 var type = this.getTypes()[0],
-                    o = createDom(), els;
+                    o = createDom(),
+                    els;
 
                 el.style.position = 'absolute';
 
                 if (options.noButton !== true) {
-                    o.innerHTML = '<div class="'+ type +'-buttons"><div class="ui-button ui-button-g">确定</div><div class="ui-button">取消</div></div>';
+                    o.innerHTML = '<div class="' + type + '-buttons"><div class="ui-button ui-button-g">确定</div><div class="ui-button">取消</div></div>';
                     els = children(o.firstChild);
-                    this._uSubmitBtn = $fastCreate(this.Button, els[0], this, {command: 'submit', primary:'ui-button-g'});
-                    this._uCancelBtn = $fastCreate(this.Button, els[1], this, {command: 'cancel'});
+                    this._uSubmitBtn = $fastCreate(this.Button, els[0], this, {
+                        command: 'submit',
+                        primary: 'ui-button-g'
+                    });
+                    this._uCancelBtn = $fastCreate(this.Button, els[1], this, {
+                        command: 'cancel'
+                    });
                     moveElements(o, el, true);
                 }
             }
@@ -2418,18 +2422,18 @@ _eInput - 多选项的INPUT对象
 
         UI_POP_CLASS = UI_POP.prototype;
 
-        UI_POP_BTN = UI_POP_CLASS.Button = 
+    UI_POP_BTN = UI_POP_CLASS.Button =
         inheritsControl(
             UI_BUTTON,
             null,
-            function (el, options) {
+            function(el, options) {
                 this._sCommand = options.command;
             }
-        ),
+    ),
 
-        UI_POP_BTN_CLASS = UI_POP_BTN.prototype;
+    UI_POP_BTN_CLASS = UI_POP_BTN.prototype;
 
-    UI_POP_CLASS.show = function (con, align) {
+    UI_POP_CLASS.show = function(con, align) {
         var view = getView(),
             h, w,
             pos = getPosition(con.getOuter());
@@ -2441,16 +2445,13 @@ _eInput - 多选项的INPUT对象
         if (!align && align == 'left') {
             if (pos.left + w > view.right) {
                 w = pos.left + con.getWidth() - w;
-            }
-            else {
+            } else {
                 w = pos.left;
             }
-        }
-        else {
+        } else {
             if (pos.left + con.getWidth() - w < 0) {
                 w = pos.left;
-            }
-            else {
+            } else {
                 w = pos.left + con.getWidth() - w;
             }
         }
@@ -2466,8 +2467,8 @@ _eInput - 多选项的INPUT对象
         setFocused(this);
     };
 
-    UI_POP_CLASS.$resize = function () {
-         var el = this._eMain,
+    UI_POP_CLASS.$resize = function() {
+        var el = this._eMain,
             currStyle = el.style;
 
         currStyle.width = this._sWidth;
@@ -2475,17 +2476,17 @@ _eInput - 多选项的INPUT对象
         this.repaint();
     }
 
-    UI_POP_CLASS.init = function () {
+    UI_POP_CLASS.init = function() {
         UI_CONTROL_CLASS.init.call(this);
         this.$hide();
     };
 
-    UI_POP_CLASS.$blur = function () {
+    UI_POP_CLASS.$blur = function() {
         this.hide();
         triggerEvent(this, 'cancel');
     };
 
-    UI_POP_BTN_CLASS.$click = function () {
+    UI_POP_BTN_CLASS.$click = function() {
         var par = this.getParent();
         UI_BUTTON_CLASS.$click.call(this);
         if (triggerEvent(par, this._sCommand)) {
@@ -2495,11 +2496,11 @@ _eInput - 多选项的INPUT对象
         }
     };
 
-    var UI_POP_BUTTON = ui.PopButton = 
+    var UI_POP_BUTTON = ui.PopButton =
         inheritsControl(
             UI_BUTTON,
             'ui-pop-button',
-            function (el, options) {
+            function(el, options) {
                 var type = this.getTypes()[0],
                     o = createDom(type + '-icon', 'position:absolute');
 
@@ -2507,7 +2508,7 @@ _eInput - 多选项的INPUT对象
                 el.appendChild(o);
                 this._sTargetId = options.target;
             },
-            function (el, options) {
+            function(el, options) {
                 var type = this.getTypes()[0];
 
                 if (options.mode == 'text') {
@@ -2518,7 +2519,7 @@ _eInput - 多选项的INPUT对象
 
         UI_POP_BUTTON_CLASS = UI_POP_BUTTON.prototype;
 
-    UI_POP_BUTTON_CLASS.$click = function () {
+    UI_POP_BUTTON_CLASS.$click = function() {
         var con;
         UI_BUTTON_CLASS.$click.call(this);
         if (this._sTargetId) {
@@ -2527,17 +2528,16 @@ _eInput - 多选项的INPUT对象
         }
     };
 })();
-
 /**
  * query-tab
  * Copyright 2012 Baidu Inc. All rights reserved.
- * 
+ *
  * path:    query-tab.js
  * desc:    查询类型tab
  * author:  cxl(chenxinle@baidu.com)
  * date:    2012/03/12
  */
-(function () {
+(function() {
     var core = ecui,
         ui = core.ui,
         dom = core.dom,
@@ -2557,22 +2557,22 @@ _eInput - 多选项的INPUT对象
         UI_RADIO = ui.Radio,
         UI_RADIO_CLASS = UI_RADIO.prototype;
 
-    var UI_QUERY_TAB = ui.QueryTab = 
+    var UI_QUERY_TAB = ui.QueryTab =
         inheritsControl(
             UI_CONTROL,
             'ui-query-tab',
             null,
-            function (el, options) {
+            function(el, options) {
                 var childs = children(el),
                     type = this.getTypes()[0],
                     i, item, value = options.value;
                 this._sName = options.name;
                 this._aItems = [];
                 this._bIsEnabled = true;
-                
+
                 for (i = 0; item = childs[i]; i++) {
                     var cfg = getOptions(item);
-                    if(undefined == cfg.name) {
+                    if (undefined == cfg.name) {
                         cfg.name = this._sName;
                     }
                     item.className = trim(item.className) + ' ' + type + '-item' + UI_RADIO.TYPES;
@@ -2589,10 +2589,10 @@ _eInput - 多选项的INPUT对象
         UI_QUERY_TAB_CLASS = UI_QUERY_TAB.prototype,
         UI_QUERY_TAB_ITEM = UI_QUERY_TAB_CLASS.Item =
         inheritsControl(
-            UI_RADIO, 
-            'ui-query-tab-item', 
+            UI_RADIO,
+            'ui-query-tab-item',
             null,
-            function (el, options) {
+            function(el, options) {
                 var o;
                 if (options.tip) {
                     o = createDom('ui-tip', '', 'span');
@@ -2605,10 +2605,10 @@ _eInput - 多选项的INPUT对象
         ),
         UI_QUERY_TAB_ITEM_CLASS = UI_QUERY_TAB_ITEM.prototype;
 
-    UI_QUERY_TAB_ITEM_CLASS.$click = function () {
+    UI_QUERY_TAB_ITEM_CLASS.$click = function() {
         var par = this.getParent(),
             curChecked = par._oCurChecked;
-        if(!par._bIsEnabled){
+        if (!par._bIsEnabled) {
             par.onLocked.call();
             return null;
         }
@@ -2620,26 +2620,25 @@ _eInput - 多选项的INPUT对象
     };
 
     /* override */
-    UI_QUERY_TAB_ITEM_CLASS.getItems = function () {
+    UI_QUERY_TAB_ITEM_CLASS.getItems = function() {
         return this.getParent().getItems();
     };
 
-    UI_QUERY_TAB_CLASS.getItems = function () {
+    UI_QUERY_TAB_CLASS.getItems = function() {
         return this._aItems.slice();
     };
 
-    UI_QUERY_TAB_CLASS.getValue = function () {
+    UI_QUERY_TAB_CLASS.getValue = function() {
         return this._oCurChecked ? this._oCurChecked.getValue() : null;
     };
-    UI_QUERY_TAB_CLASS.getName = function () {
+    UI_QUERY_TAB_CLASS.getName = function() {
         return this._sName;
     };
-    UI_QUERY_TAB_CLASS.onLocked = function () {
-    }
-    UI_QUERY_TAB_CLASS.setEnabled = function (value) {
+    UI_QUERY_TAB_CLASS.onLocked = function() {}
+    UI_QUERY_TAB_CLASS.setEnabled = function(value) {
         this._bIsEnabled = !!value;
     }
-    UI_QUERY_TAB_CLASS.setValue = function (value) {
+    UI_QUERY_TAB_CLASS.setValue = function(value) {
         for (var i = 0, item; item = this._aItems[i]; i++) {
             if (item.getValue() == value) {
                 item.setChecked(true);
@@ -2648,7 +2647,6 @@ _eInput - 多选项的INPUT对象
         }
     };
 })();
-
 (function () {
     var core = ecui,
         array = core.array,

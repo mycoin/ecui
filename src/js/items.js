@@ -151,7 +151,6 @@ Item/Items - 定义选项操作相关的基本操作。
                 o.innerHTML = item;
                 item = o;
             }
-
             o = this.Item || UI_ITEM;
             item.className = trim(item.className) + ' ' + this.getType() + '-item' + o.TYPES;
 

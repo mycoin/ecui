@@ -1,4 +1,4 @@
-(function () {
+(function() {
     var core = ecui,
         array = core.array,
         dom = core.dom,
@@ -11,7 +11,7 @@
         createDom = dom.create,
         children = dom.children,
         moveElements = dom.moveElements,
-        getPosition  = dom.getPosition,
+        getPosition = dom.getPosition,
         inheritsControl = core.inherits,
         triggerEvent = core.triggerEvent,
         getView = util.getView,
@@ -22,22 +22,28 @@
         UI_BUTTON = ui.Button,
         UI_BUTTON_CLASS = UI_BUTTON.prototype;
 
-    var UI_POP = ui.Pop = 
+    var UI_POP = ui.Pop =
         inheritsControl(
             UI_CONTROL,
             'ui-pop',
             null,
-            function (el, options) {
+            function(el, options) {
                 var type = this.getTypes()[0],
-                    o = createDom(), els;
+                    o = createDom(),
+                    els;
 
                 el.style.position = 'absolute';
 
                 if (options.noButton !== true) {
-                    o.innerHTML = '<div class="'+ type +'-buttons"><div class="ui-button ui-button-g">确定</div><div class="ui-button">取消</div></div>';
+                    o.innerHTML = '<div class="' + type + '-buttons"><div class="ui-button ui-button-g">确定</div><div class="ui-button">取消</div></div>';
                     els = children(o.firstChild);
-                    this._uSubmitBtn = $fastCreate(this.Button, els[0], this, {command: 'submit', primary:'ui-button-g'});
-                    this._uCancelBtn = $fastCreate(this.Button, els[1], this, {command: 'cancel'});
+                    this._uSubmitBtn = $fastCreate(this.Button, els[0], this, {
+                        command: 'submit',
+                        primary: 'ui-button-g'
+                    });
+                    this._uCancelBtn = $fastCreate(this.Button, els[1], this, {
+                        command: 'cancel'
+                    });
                     moveElements(o, el, true);
                 }
             }
@@ -45,18 +51,18 @@
 
         UI_POP_CLASS = UI_POP.prototype;
 
-        UI_POP_BTN = UI_POP_CLASS.Button = 
+    UI_POP_BTN = UI_POP_CLASS.Button =
         inheritsControl(
             UI_BUTTON,
             null,
-            function (el, options) {
+            function(el, options) {
                 this._sCommand = options.command;
             }
-        ),
+    ),
 
-        UI_POP_BTN_CLASS = UI_POP_BTN.prototype;
+    UI_POP_BTN_CLASS = UI_POP_BTN.prototype;
 
-    UI_POP_CLASS.show = function (con, align) {
+    UI_POP_CLASS.show = function(con, align) {
         var view = getView(),
             h, w,
             pos = getPosition(con.getOuter());
@@ -68,16 +74,13 @@
         if (!align && align == 'left') {
             if (pos.left + w > view.right) {
                 w = pos.left + con.getWidth() - w;
-            }
-            else {
+            } else {
                 w = pos.left;
             }
-        }
-        else {
+        } else {
             if (pos.left + con.getWidth() - w < 0) {
                 w = pos.left;
-            }
-            else {
+            } else {
                 w = pos.left + con.getWidth() - w;
             }
         }
@@ -93,8 +96,8 @@
         setFocused(this);
     };
 
-    UI_POP_CLASS.$resize = function () {
-         var el = this._eMain,
+    UI_POP_CLASS.$resize = function() {
+        var el = this._eMain,
             currStyle = el.style;
 
         currStyle.width = this._sWidth;
@@ -102,17 +105,17 @@
         this.repaint();
     }
 
-    UI_POP_CLASS.init = function () {
+    UI_POP_CLASS.init = function() {
         UI_CONTROL_CLASS.init.call(this);
         this.$hide();
     };
 
-    UI_POP_CLASS.$blur = function () {
+    UI_POP_CLASS.$blur = function() {
         this.hide();
         triggerEvent(this, 'cancel');
     };
 
-    UI_POP_BTN_CLASS.$click = function () {
+    UI_POP_BTN_CLASS.$click = function() {
         var par = this.getParent();
         UI_BUTTON_CLASS.$click.call(this);
         if (triggerEvent(par, this._sCommand)) {
@@ -122,11 +125,11 @@
         }
     };
 
-    var UI_POP_BUTTON = ui.PopButton = 
+    var UI_POP_BUTTON = ui.PopButton =
         inheritsControl(
             UI_BUTTON,
             'ui-pop-button',
-            function (el, options) {
+            function(el, options) {
                 var type = this.getTypes()[0],
                     o = createDom(type + '-icon', 'position:absolute');
 
@@ -134,7 +137,7 @@
                 el.appendChild(o);
                 this._sTargetId = options.target;
             },
-            function (el, options) {
+            function(el, options) {
                 var type = this.getTypes()[0];
 
                 if (options.mode == 'text') {
@@ -145,7 +148,7 @@
 
         UI_POP_BUTTON_CLASS = UI_POP_BUTTON.prototype;
 
-    UI_POP_BUTTON_CLASS.$click = function () {
+    UI_POP_BUTTON_CLASS.$click = function() {
         var con;
         UI_BUTTON_CLASS.$click.call(this);
         if (this._sTargetId) {

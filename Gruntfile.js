@@ -34,6 +34,7 @@ module.exports = function(grunt) {
                         "src/js/tree-view.js",
                         "src/js/month-view.js",
                         "src/js/table.js",
+                        "src/js/popup-menu.js",
                         "src/js/locked-table.js",
                         "src/js/messagebox.js"
                     ],

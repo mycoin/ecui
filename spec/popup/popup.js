@@ -3,7 +3,7 @@ describe('弹出菜单控件初始化测试', {
         var el = document.createElement('div');
         el.style.cssText = 'width:100px';
         el.innerHTML = '<div style="height:20px">1</div><div>2</div><div>3</div><div>4</div>';
-        var control = ecui.create('Popup', {main: el});
+        var control = ecui.create('PopupMenu', {main: el});
 
         value_of(control.getItems().length).should_be(4);
 
@@ -16,7 +16,7 @@ describe('弹出菜单控件初始化测试', {
         el.style.cssText = 'width:100px';
         el.innerHTML = '<div style="height:20px"><label>1</label><div>1.1</div><div>1.2</div></div><div>2</div>'
             + '<div>3</div><div>4</div>';
-        var control = ecui.create('Popup', {main: el});
+        var control = ecui.create('PopupMenu', {main: el});
 
         value_of(control.getItems().length).should_be(4);
         value_of(control.getItems()[0].getItems().length).should_be(2);
@@ -29,7 +29,7 @@ describe('弹出菜单控件初始化测试', {
         var el = document.createElement('div');
         el.style.cssText = 'width:100px';
         el.innerHTML = '<div style="height:20px">1</div><div>2</div><div>3</div><div>4</div>';
-        var control = ecui.create('Popup', {main: el, optionSize: 3});
+        var control = ecui.create('PopupMenu', {main: el, optionSize: 3});
 
         control.show();
         value_of(control.getHeight()).should_be(
@@ -49,7 +49,7 @@ describe('弹出菜单控件功能测试', {
         el.style.cssText = 'width:100px';
         el.innerHTML = '<div style="height:20px"><label>1</label><div>1.1</div><div>1.2</div></div><div>2</div>'
             + '<div>3</div><div>4</div>';
-        var control = ecui.create('Popup', {main: el}),
+        var control = ecui.create('PopupMenu', {main: el}),
             items = control.getItems(),
             node1 = items[0];
 
@@ -67,7 +67,7 @@ describe('弹出菜单控件功能测试', {
         var el = document.createElement('div');
         el.style.cssText = 'width:100px';
         el.innerHTML = '<div style="height:20px"><label>1</label><div>1.1</div><div>1.2</div></div><div>2</div>';
-        var control = ecui.create('Popup', {main: el}),
+        var control = ecui.create('PopupMenu', {main: el}),
             items = control.getItems(),
             node1 = items[0],
             node2 = items[1];
@@ -99,7 +99,7 @@ describe('弹出菜单控件功能测试', {
         var el = document.createElement('div');
         el.style.cssText = 'width:100px';
         el.innerHTML = '<div style="height:20px"><label>1</label><div>1.1</div><div>1.2</div></div><div>2</div>';
-        var control = ecui.create('Popup', {main: el}),
+        var control = ecui.create('PopupMenu', {main: el}),
             items = control.getItems(),
             node1 = items[0],
             node2 = items[1],

@@ -177,20 +177,17 @@ test('表单事件', {
     },
 
     '改变控件位置时新表单自动绑定': function() {
-        var el = baidu.dom.g('common'),
-            result = [];
-        el.innerHTML = '<form id="form1"><input id="test" ecui="type:input-control;id:test"></form><form id="form2"></form>';
+        var el = baidu.dom.g('common');
+        el.innerHTML = '<form id="form1"><input id="test" value="P" ecui="type:input-control;id:test"></form><form id="form2"></form>';
 
         ecui.init(el);
         var control = ecui.get('test');
-        control.onreset = function(event) {
-            result.push('reset');
-        };
+        control.setValue('C');
 
         control.appendTo(baidu.dom.g('form2'));
         baidu.dom.g('form2').reset();
         this.wait(function() {
-            value_of(result).should_be(['reset']);
+            value_of(control.getValue()).should_be('P');
         }, 0);
     }
 });

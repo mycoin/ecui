@@ -15,6 +15,7 @@ document.write('<link rel="stylesheet" type="text/css" media="screen" href="spec
 document.write('<link rel="stylesheet" type="text/css" media="screen" href="' + href + '.css" />');
 document.write('<script type="text/javascript" src="tangram.js"></script>');
 document.write('<script type="text/javascript" src="../release/ecui.js"></script>');
+document.write('<script type="text/javascript" src="../release/ecui-ext.js"></script>');
 document.write('<script type="text/javascript" src="test.js"></script>');
 document.write('<script type="text/javascript" src="MockEvent.js"></script>');
 document.write('<script type="text/javascript" src="' + href + '.js"></script>');

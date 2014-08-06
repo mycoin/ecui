@@ -1,11 +1,7 @@
 function before() {
     var el = document.createElement('div');
     el.id = 'group';
-    el.innerHTML = '<form><div ecui="type:radio;id:item1;name:old" style="width:10px;height:10px"></div>'
-        + '<div ecui="type:radio;id:item2;name:old" style="width:10px;height:10px"></div>'
-        + '<div ecui="type:radio;id:item3;name:old" style="width:10px;height:10px"></div>'
-        + '<div ecui="type:radio;id:item4;name:old" style="width:10px;height:10px"></div>'
-        + '<div ecui="type:radio;id:item5;name:old" style="width:10px;height:10px"></div></form>';
+    el.innerHTML = '<form><div ecui="type:radio;id:item1;name:old" style="width:10px;height:10px"></div>' + '<div ecui="type:radio;id:item2;name:old" style="width:10px;height:10px"></div>' + '<div ecui="type:radio;id:item3;name:old" style="width:10px;height:10px"></div>' + '<div ecui="type:radio;id:item4;name:old" style="width:10px;height:10px"></div>' + '<div ecui="type:radio;id:item5;name:old" style="width:10px;height:10px"></div></form>';
     document.body.appendChild(el);
     ecui.init(el);
 }
@@ -17,10 +13,13 @@ function after() {
 }
 
 describe('控件初始化', {
-    '通过<input>初始化': function () {
+    '通过<input>初始化': function() {
         var el = document.createElement('input');
+        document.body.appendChild(el);
         el.style.cssText = 'width:20px;height:20px;display:none';
-        var control = ecui.create('Radio', {main: el});
+        var control = ecui.create('Radio', {
+            main: el
+        });
 
         value_of(control.getMain()).should_be(el.parentNode);
         value_of(control.getInput()).should_be(el);
@@ -32,10 +31,13 @@ describe('控件初始化', {
         ecui.dispose(control);
     },
 
-    '通过<div>初始化': function () {
+    '通过<div>初始化': function() {
         var el = document.createElement('div');
+        document.body.appendChild(el);
         el.style.cssText = 'width:20px;height:20px;display:none';
-        var control = ecui.create('Radio', {main: el});
+        var control = ecui.create('Radio', {
+            main: el
+        });
 
         value_of(control.getMain()).should_be(el);
         value_of(control.getInput()).should_be(el.firstChild);
@@ -47,12 +49,15 @@ describe('控件初始化', {
         ecui.dispose(control);
     },
 
-    '通过<div><input>初始化': function () {
+    '通过<div><input>初始化': function() {
         var el = document.createElement('div'),
             input = document.createElement('input');
+        document.body.appendChild(el);
         el.style.cssText = 'width:20px;height:20px;display:none';
         el.appendChild(input);
-        var control = ecui.create('Radio', {main: el});
+        var control = ecui.create('Radio', {
+            main: el
+        });
 
         value_of(control.getMain()).should_be(el);
         value_of(control.getInput()).should_be(input);
@@ -64,12 +69,10 @@ describe('控件初始化', {
         ecui.dispose(control);
     },
 
-    '指定checked为true(input)': function () {
+    '指定checked为true(input)': function() {
         var el = document.createElement('div');
         el.id = 'group';
-        el.innerHTML = '<form><input ecui="type:radio;id:item1" name="old" type="radio">'
-            + '<input ecui="type:radio;id:item2" type="radio" name="old" checked>'
-            + '<input ecui="type:radio;id:item3" type="radio" name="old" checked></form>'
+        el.innerHTML = '<form><input ecui="type:radio;id:item1" name="old" type="radio">' + '<input ecui="type:radio;id:item2" type="radio" name="old" checked>' + '<input ecui="type:radio;id:item3" type="radio" name="old" checked></form>'
         document.body.appendChild(el);
         ecui.init(el);
 
@@ -86,12 +89,10 @@ describe('控件初始化', {
         document.body.removeChild(el);
     },
 
-    '指定checked为true(options)': function () {
+    '指定checked为true(options)': function() {
         var el = document.createElement('div');
         el.id = 'group';
-        el.innerHTML = '<form><div ecui="type:radio;id:item1;name:old"></div>'
-            + '<div ecui="type:radio;id:item2;checked:true;name:old"></div>'
-            + '<div ecui="type:radio;id:item3;checked:true;name:old"></div></form>'
+        el.innerHTML = '<form><div ecui="type:radio;id:item1;name:old"></div>' + '<div ecui="type:radio;id:item2;checked:true;name:old"></div>' + '<div ecui="type:radio;id:item3;checked:true;name:old"></div></form>'
         document.body.appendChild(el);
         ecui.init(el);
 
@@ -110,7 +111,7 @@ describe('控件初始化', {
 });
 
 test('交互行为模拟', {
-    '鼠标点击操作': function () {
+    '鼠标点击操作': function() {
         var item1 = ecui.get('item1'),
             item2 = ecui.get('item2');
 
@@ -123,7 +124,7 @@ test('交互行为模拟', {
         value_of(item2.isChecked()).should_be_true();
     },
 
-    '键盘操作': function () {
+    '键盘操作': function() {
         var item1 = ecui.get('item1'),
             item2 = ecui.get('item2');
 
@@ -142,7 +143,7 @@ test('交互行为模拟', {
 });
 
 test('单选框组', {
-    '获取同组单选框': function () {
+    '获取同组单选框': function() {
         var item1 = ecui.get('item1'),
             item2 = ecui.get('item2'),
             item3 = ecui.get('item3'),
@@ -157,7 +158,7 @@ test('单选框组', {
         value_of(item5.getItems()).should_be([item1, item2, item3, item4, item5]);
     },
 
-    '选项名称为空不分组(getName/setName)': function () {
+    '选项名称为空不分组(getName/setName)': function() {
         var item1 = ecui.get('item1'),
             item2 = ecui.get('item2'),
             item3 = ecui.get('item3'),
@@ -175,7 +176,7 @@ test('单选框组', {
         value_of(item1.getItems()).should_be([item1, item2, item3]);
     },
 
-    '在未选中时改变选项名称(getName/setName)': function () {
+    '在未选中时改变选项名称(getName/setName)': function() {
         var item1 = ecui.get('item1'),
             item2 = ecui.get('item2'),
             item3 = ecui.get('item3'),
@@ -192,7 +193,7 @@ test('单选框组', {
         value_of(item5.isChecked()).should_be_false();
     },
 
-    '选中状态控制(setChecked/isChecked)': function () {
+    '选中状态控制(setChecked/isChecked)': function() {
         var item1 = ecui.get('item1'),
             item2 = ecui.get('item2');
 
