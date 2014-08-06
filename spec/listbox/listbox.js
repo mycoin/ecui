@@ -14,7 +14,6 @@ describe('多选框控件初始化测试', {
         value_of(items !== control.getItems()).should_be_true();
         value_of(items.length).should_be(5);
         value_of(el.getElementsByTagName('input')[0].name).should_be('test');
-        console.log(el.getElementsByTagName('input')[1])
         value_of(el.getElementsByTagName('input')[1].value).should_be('on');
         value_of(el.getElementsByTagName('input')[2].value).should_be('c2');
         value_of(items[2].isSelected()).should_be_true();
@@ -66,7 +65,6 @@ describe('多选框控件功能测试', {
 
     '改变多选框名称，移动子选项，子选项名称改变(getName/setName)': function() {
         var el = document.createElement('div');
-        el.style.cssText = 'width:200px;height:100px';
         el.innerHTML = '<div>1</div><div ecui="value:c2;selected:true">2</div><div>3</div><div>4</div>';
         var listbox = ecui.create('MultiSelect', {
                 main: el,
