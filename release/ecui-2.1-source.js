@@ -968,11 +968,11 @@ var ecui;
          * @return {Date} 结果日期
          */
         parseDate = string.parseDate = function (subject) {
-            if (subject instanceof Date) {
-                return subject;
-            } else {
-                return subject ? new DATE(typeof subject == "number" ? subject : String(subject).replace(/-/g, "/")) : new DATE;
+            if (subject instanceof Date) { 
+                return subject; 
             }
+            var subject = subject ? new DATE(typeof subject == "number" ? subject : String(subject).replace(/-/g, "/")) : new DATE;
+            return subject.toString() == 'Invalid Date' ? new DATE : subject;
         },
         //@todo: liuronghan
         addDate = string.addDate = function (subject, addFlag) {
@@ -2466,23 +2466,6 @@ var ecui;
             return extend({}, namedControls);
         };
         /**
-         * bigint的问题
-         * @public
-         *
-         * @return {Object} 悲剧
-         */
-        var __disposeBitInt = function (str) {
-            if(/^(|-)\d+$/.test(str)) {
-                if (String(str).length > 10) {
-                    return String(str);
-                } else {
-                    return Number(str);
-                }
-            } else {
-                return string.trim(str);
-            }
-        };
-        /**
          * 从 Element 对象中获取初始化选项对象。
          * @public
          *
@@ -2503,7 +2486,7 @@ var ecui;
                         return options;
                     }
                 }
-
+                text = text.replace(/\:(\s*)\;/g, ":false;");
                 for (
                     options = {};
                     /^(\s*;)?\s*(ext\-)?([\w\-]+)\s*(:\s*([^;\s]+(\s+[^;\s]+)*)\s*)?($|;)/.test(text);
@@ -2512,8 +2495,24 @@ var ecui;
 
                     el = REGEXP.$5;
                     attributeName = REGEXP.$2 ? (options.ext = options.ext || {}) : options;
-                    attributeName[toCamelCase(REGEXP.$3)] =
-                        !el || el == 'true' ? true : el == 'false' ? false : __disposeBitInt(el);
+                    attributeName[toCamelCase(REGEXP.$3)] = function () {
+                        var item = RegExp.$5;
+                        if(/^(true|false)$/.test(item)) {
+                            return !!(item == "true");
+                        } else if(/^(-)?(|\.|\d)+$/.test(item)) {
+                            if (item.length > 10) {
+                                return item;
+                            } else {
+                                return Number(item);
+                            }
+                        } else if (item == "undefined") {
+                            return undefined;
+                        } else if (item == "null") {
+                            return null;
+                        } else {
+                            return item;
+                        }
+                    }();
                 }
                 return options;
             }
@@ -2675,12 +2674,15 @@ var ecui;
                 if(ieVersion < 8) {
                     o.innerHTML = '<iframe style="width:100%;filter:alpha(opacity=0);-moz-opacity:0; height:100%; position:absolute; z-index:'+ (zIndex - 2) +'"></iframe>';
                     //mask cannot be removed bug fix
-                    var ifrm = baidu.dom.query('iframe', o)[0];
-                    ifrm.contentWindow.document.onclick = function() {
-                        o.removeChild(ifrm);
-                        baidu.event.fire(o, 'mousedown');
-                        baidu.event.fire(body, 'mousedown');
-                    };
+                     try{
+                        var ifrm = baidu.dom.query('iframe', o)[0];
+                        ifrm.contentWindow.document.onclick = function() {
+                            o.removeChild(ifrm);
+                            baidu.event.fire(o, 'mousedown');
+                            baidu.event.fire(body, 'mousedown');
+                        };
+                    }catch(ex){}
+                   
                 }
                 o.style.cssText += text + 'block';
             }
@@ -5021,7 +5023,7 @@ Button - 定义按钮的基本操作。
      * @param {string} text 控件的文字
      */
     UI_BUTTON_CLASS.$setSize = function () {
-        if(this.getType() != "ui-button") {
+        if(this.getParent()) {
             UI_CONTROL_CLASS.$setSize.apply(this, [].slice.call(arguments));
         }
     };
@@ -7634,6 +7636,7 @@ _uClose         - 关闭按钮
         drag = core.drag,
         inheritsControl = core.inherits,
         loseFocus = core.loseFocus,
+        triggerEvent = core.triggerEvent,
         mask = core.mask,
         setFocused = core.setFocused,
 
@@ -7755,7 +7758,7 @@ _uClose         - 关闭按钮
      */
     UI_FORM_CLOSE_CLASS.$click = function (event) {
         UI_CONTROL_CLASS.$click.call(this, event);
-        this.getParent().hide();
+        this.getParent().hide("CLOSE");
     };
 
     /**
@@ -7882,11 +7885,14 @@ _uClose         - 关闭按钮
      * 如果窗体是以 showModal 方式打开的，只有位于最顶层的窗体才允许关闭。
      * @override
      */
-    UI_FORM_CLASS.hide = function () {
+    UI_FORM_CLASS.hide = function (event_refer) {
         for (var i = indexOf(UI_FORM_ALL, this), o; o = UI_FORM_ALL[++i]; ) {
             if (o._bFlag) {
                 return false;
             }
+        }
+        if(event_refer == "CLOSE") {
+            triggerEvent(this, 'close', event, []);
         }
         return UI_CONTROL_CLASS.hide.call(this);
     };
@@ -8146,7 +8152,8 @@ _aChildren     - 子控件集合
      * @return {ecui.ui.TreeView} 子树视图控件
      */
     function UI_TREE_VIEW_CREATE_CHILD(el, parent, options) {
-        el.className = (trim(el.className) || parent.getPrimary()) + parent.constructor.agent.TYPES;
+        el.className = (trim(el.className) || parent.getPrimary()) + parent.constructor.agent.TYPES
+            + (options && options.className ? (' ' + options.className) : '');   // by caijuan@baidu.com
         return $fastCreate(parent.constructor, el, null, extend(extend({}, options), getOptions(el)));
     }
 
@@ -9067,7 +9074,7 @@ _aElements   - 行的列Element对象，如果当前列需要向左合并为null
                 while (row._aElements[i] === null) {
                     o += list[i++].getWidth();
                 }
-                el.style.width = o + 'px';
+                try{el.style.width = o + 'px';}catch(ex){};
             }
         }
     }
@@ -9948,13 +9955,23 @@ _eFill       - 用于控制中部宽度的单元格
                 // 以下使用 options 代替 rows
                 for (; el = rows[i]; ) {
                     el = el.getMain();
-                    list[i++] =
-                        '<tr class="' + el.className + '" style="' + el.style.cssText +
-                            '"><td style="padding:0px;border:0px"></td></tr>';
+                    list[i++] = '<tr class="' + el.className + '" style="' + el.style.cssText +'"><td style="padding:0px;border:0px"></td></tr>';
                 }
-
                 lockedEl.innerHTML =
-                    '<div class="' + type + '-locked-head" style="position:absolute;top:0px;left:0px"><div style="white-space:nowrap;position:absolute"><table cellspacing="0"><thead>' + list.splice(0, headRows.length).join('') + '</thead></table></div></div><div class="' + type + '-locked-layout" style="position:absolute;left:0px;overflow:hidden"><div style="white-space:nowrap;position:absolute;top:0px;left:0px"><table cellspacing="0"><tbody>' + list.join('') + '</tbody></table></div></div>';
+                    '<div class="' + type + '-locked-head" style="position:absolute;top:0px;left:0px">'
+                        + '<div style="white-space:nowrap;position:absolute">'
+                            + '<table cellspacing="0">'
+                            + '<thead>' + list.splice(0, headRows.length).join('') + '</thead>' 
+                            + '</table>'
+                        + '</div>'
+                    +'</div>'
+                    +'<div class="' + type + '-locked-layout" style="position:absolute;left:0px;overflow:hidden">'
+                        + '<div style="white-space:nowrap;position:absolute;top:0px;left:0px">' 
+                            + '<table cellspacing="0">'
+                                + '<tbody>' + list.join('') + '</tbody>'
+                            + '</table>' 
+                        + '</div>'
+                    + '</div>';
                 // 初始化锁定的表头区域，以下使用 list 表示临时变量
                 o = this._uLockedHead = $fastCreate(UI_CONTROL, lockedEl.firstChild, this);
                 o.$setBody(el = o.getMain().lastChild.lastChild.firstChild);
@@ -10066,10 +10083,8 @@ _eFill       - 用于控制中部宽度的单元格
             pos = cols[this._nLeft].$$pos;
 
         this.$$paddingTop = MAX(this.$$paddingTop, this._uLockedHead.getBody().offsetHeight);
-        this.$$mainWidth -=
-            (this.$$paddingLeft = pos) +
-                (this.$$paddingRight =
-                    this._nRight < cols.length ? this.$$mainWidth - cols[this._nRight].$$pos : 0);
+        this.$$mainWidth -= 
+            (this.$$paddingLeft = pos) + (this.$$paddingRight = this._nRight < cols.length ? this.$$mainWidth - cols[this._nRight].$$pos : 0);
 
         // 以下使用 style 代替临时变量 o
         for (; style = cols[i++]; ) {
@@ -10140,7 +10155,10 @@ _eFill       - 用于控制中部宽度的单元格
 
         style.height = this.$$paddingTop + 'px';
         this._uLockedMain.$setSize(o, toNumber(layout.style.height));
-        style.width = this._uLockedMain.getBody().lastChild.style.width = o + 'px';
+        try{
+            //@liuronghan
+            style.width = this._uLockedMain.getBody().lastChild.style.width = o + 'px';
+        } catch (e) {}
         this._uLockedMain.getOuter().style.top = this.$$paddingTop + 'px';
 
         width = layout.style.width;
@@ -10179,6 +10197,7 @@ _eFill       - 用于控制中部宽度的单元格
         rows = this._aLockedRow;
         for (i = 0; o = rows[i]; i++) {
             o._eFill.style.width = width;
+            // o._eFill.className = this.getClass() + "-layout-main"
 
             style = MAX(height = o.getCell(this._nLeft).getOuter().offsetHeight, o._eFill.offsetHeight);
             if (style > o._eFill.offsetHeight) {
@@ -10191,7 +10210,6 @@ _eFill       - 用于控制中部宽度的单元格
                  if(firefoxVersion && firefoxVersion > 15) {
                     minHeight = o.getCell(this._nLeft).$getBasicHeight()
                 }
-
                 o.getCell(this._nLeft).getOuter().style.height = MAX(style - minHeight, 0) + 'px';
             }
         }

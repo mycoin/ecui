@@ -907,6 +907,14 @@ Calendar - 单日历控件
     UI_CALENDAR_PANEL_MONTHVIEW_CLASS.$change = function (event, date) {
         triggerEvent(this.getParent(), 'change', event, [date]);
     };
+    
+    UI_CALENDAR_CLASS.open = function () {
+        if(this.isDisabled() || this._uPanel.isShow()) {
+            return false;
+        }
+        this.$activate();
+        return true;
+    }
 
 })();
 
@@ -2281,6 +2289,16 @@ _eInput - 多选项的INPUT对象
      * @param {number} height 高度，如果不需要设置则省略此参数
      */
     UI_MULTI_SELECT_CLASS.$setSize = UI_SELECT_CLASS.$setSize;
+    /**
+     * 设置控件的大小。
+     * @protected
+     *
+     * @param {number} width 宽度，如果不需要设置则将参数设置为等价于逻辑非的值
+     * @param {number} height 高度，如果不需要设置则省略此参数
+     */
+    UI_MULTI_SELECT_CLASS.getLayer = function () {
+        return this._uOptions;
+    };
 
     /**
      * 获取全部选中的选项控件。
