@@ -1,0 +1,180 @@
+.ui-table {
+    border: 0;
+    border-left: 1px solid #E6E6E6;
+    background: #FFF;
+}
+.ui-table-head, 
+.ui-table-locked-head {
+    overflow: hidden;
+    position: relative;
+    border-bottom: 1px solid #DDD;
+    border-top: 1px solid #DDD;
+    background: url(img/ecui-bg.gif) 0 -20px repeat-x!important;
+    padding-left: 2px;
+    padding-left: 0px\9;
+}
+.ui-table-hcell {
+    padding: 0 3px;
+    cursor: default;
+    border-right: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
+    vertical-align: middle;
+    color: #1963A9;
+    text-align: center;
+    font-weight: normal;
+    white-space: nowrap!important;
+    word-break: keep-all;
+}
+.ui-table-fill {
+    padding: 0;
+    border-right: 1px solid #DDD;
+}
+.ui-table-cell {
+    padding: 0 3px;
+    border-bottom: 1px solid #DDD;
+    border-right: 1px solid #DDD;
+    line-height: 30px;
+    vertical-align: middle;
+    white-space: normal; 
+    word-break: keep-all; 
+    overflow: auto;
+    word-break:break-all;
+    white-space: moz-pre-wrap;
+    word-wrap: break-word;
+}
+.ui-table-cell .ui-checkbox {
+    *margin-top: 6px;
+}
+.ui-table-expend-cell .ui-checkbox {
+    *margin-top: 11px;
+}
+.ui-table-cell-align-right {
+    text-align: right;
+}
+.ui-table-cell-align-center {
+    text-align: center;
+}
+.ui-table-row {
+    font-size: 12px!important;
+}
+.ui-table-row-focus {
+    background: #E6F4FF!important;
+}
+.ui-table-row-hover {
+    background: #F6FAFB!important;
+}
+.ui-table-row-highlight {
+    background: #FEFACA!important;
+}
+.ui-table-head-shadow {
+    height: 5px;
+    overflow: hidden;
+    background: #CCC;
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+}
+.ui-table-hcell-checkbox{text-align:center;}
+.ui-table-cell-center{text-align:center;}
+.ui-table-checkbox{position: relative;left: -1px}
+.ui-table-hcell-sort {
+    background: url(img/ecui-table.png) right -240px no-repeat;
+    cursor: pointer;
+}
+.ui-table-hcell-sort-asc {
+    background: url(img/ecui-table.png) right -300px no-repeat;
+}
+.ui-table-hcell-sort-desc {
+    background: url(img/ecui-table.png) right -360px no-repeat;
+}
+.ui-table-hcell-filter {
+    background: url(img/ecui.png) right 0px no-repeat;
+}
+.ui-table-hcell-filter-hover {
+    background-position: right -60px;
+}
+.ui-table-hcell-filter-active {
+    background-position: right -120px;
+}
+.ui-table-panel-empty {
+    height: 40px;
+    line-height: 40px;
+}
+.ui-table-empty {
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+.ui-table-expend-layer {
+    background: #FFF;
+    overflow: auto;
+}
+
+.ui-editor {
+    position: absolute;
+    padding: 10px;
+    border: 1px solid #A5AEB5;
+    background: #FFF6BD;
+}
+.ui-editor-input {
+    width: 170px;
+    margin-right: 10px;
+}
+.ui-editor-select {
+    margin-right: 10px;
+}
+.ui-editor-tip {
+    color: #F00;
+}
+.ui-editor .ui-button {
+    vertical-align: top;
+}
+
+.ui-table-cell-editor {
+    position: relative;
+    margin: 0 -3px;
+    padding: 0 3px;
+    border: 1px solid transparent;
+    line-height: 28px;
+    vertical-align: top;
+    _border-color: #FFF;
+}
+.ui-table-row-hover .ui-table-cell-editor {
+    _border-color: #F6FAFB;
+}
+.ui-table-cell-editor-button {
+    position: absolute;
+    display: none;
+    top: 6px;
+    right: 6px;
+    width: 16px;
+    height: 16px;
+    background: url(img/ecui.png) -85px -220px no-repeat;
+}
+.ui-table-cell-align-right .ui-table-cell-editor-button {
+    right: 100%;
+    margin-right: -22px;
+/*只为了IE6...为啥就不能直接left...*/
+}
+.ui-table-cell-hover .ui-table-cell-editor {
+    border-color: #FFCC33;
+}
+.ui-table-cell-hover .ui-table-cell-editor-button {
+    display: block;
+}
+.ui-table-empty-cell {color: #999;text-align: center; border: none;}
+.ui-table-hcell {line-height: 35px;}
+.ui-table-cell-ellipsis {overflow: hidden; text-overflow: ellipsis;}
+.ui-table table{*table-layout: fixed;}
+.ui-table a:link, .ui-table a:visited, .ui-table a:hover, .ui-table a:active {
+    color:#117BD3; text-decoration:none;
+}
+.ui-table-checkbox-all{position: relative; top:2px; margin-right: 2px}
+.ui-table-layout{ 
+    border-right: 1px solid #DDDDDD; border-right:none\9;border-right: 1px solid #DDDDDD;
+}
+
+.ui-table-layout .ui-table-row{background-color: #FFF}
+.ui-table-locked-layout .ui-table-row{background-color: #FCFCFC}
+
+.ui-table-cell a.link {display: inline-block; padding: 0 5px; color: #0088CC; text-decoration: underline;}

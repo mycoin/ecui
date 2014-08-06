@@ -3,7 +3,10 @@ function before() {
     el.style.cssText = 'width:100px;height:20px';
     el.innerHTML = '<div ecui="value:1">1</div><div ecui="value:2"></div>';
 
-    var control = ecui.create('Select', {id: 'select', main: el});
+    var control = ecui.create('Select', {
+        id: 'select',
+        main: el
+    });
     control.appendTo(document.body);
 }
 
@@ -27,16 +30,16 @@ function check(control) {
 }
 
 describe('控件初始化', {
-    '通过<select>初始化': function () {
+    '通过<select>初始化': function() {
         var el = document.createElement('div');
-        el.innerHTML = '<select style="width:100px;height:20px"><option value="1">1</option>'
-            + '<option value="2"></option></select>';
-        var control = ecui.create('Select', {main: el.firstChild});
+        el.innerHTML = '<select style="width:100px;height:20px"><option value="1">1</option>' + '<option value="2"></option></select>';
+        var control = ecui.create('Select', {
+            main: el.firstChild
+        });
 
         value_of(control.getWidth()).should_be(100);
         value_of(control.getHeight()).should_be(20);
         check(control);
-
         var items = control.getItems();
         value_of(items.length).should_be(2);
         value_of(items === control.getItems()).should_be_false();
@@ -45,10 +48,12 @@ describe('控件初始化', {
         ecui.dispose(control);
     },
 
-    '通过<div>初始化': function () {
+    '通过<div>初始化': function() {
         var el = document.createElement('div');
         el.innerHTML = '<div style="width:100px;height:20px"><div class="custom" ecui="value:1">1</div><div>2</div></div>';
-        var control = ecui.create('Select', {main: el.firstChild});
+        var control = ecui.create('Select', {
+            main: el.firstChild
+        });
 
         value_of(control.getWidth()).should_be(100);
         value_of(control.getHeight()).should_be(20);
@@ -66,13 +71,15 @@ describe('控件初始化', {
         ecui.dispose(control);
     },
 
-    '默认初始化参数': function () {
+    '默认初始化参数': function() {
         var el = document.createElement('div');
         el.style.cssText = 'width:100px;height:20px';
-        el.innerHTML = '<div ecui="value:1">1</div><div ecui="value:2"></div><div ecui="value:3"></div>'
-            + '<div ecui="value:4"></div><div ecui="value:5"></div><div ecui="value:6"></div>';
+        el.innerHTML = '<div ecui="value:1">1</div><div ecui="value:2"></div><div ecui="value:3"></div>' + '<div ecui="value:4"></div><div ecui="value:5"></div><div ecui="value:6"></div>';
 
-        var control = ecui.create('Select', {id: 'select', main: el});
+        var control = ecui.create('Select', {
+            id: 'select',
+            main: el
+        });
         control.appendTo(document.body);
 
         uiut.MockEvents.mousedown(control.getMain());
@@ -86,13 +93,17 @@ describe('控件初始化', {
         ecui.dispose(control);
     },
 
-    '指定初始化参数': function () {
+    '指定初始化参数': function() {
         var el = document.createElement('div');
         el.style.cssText = 'width:100px;height:20px';
-        el.innerHTML = '<div ecui="value:1">1</div><div ecui="value:2"></div><div ecui="value:3"></div>'
-            + '<div ecui="value:4"></div><div ecui="value:5"></div><div ecui="value:6"></div>';
+        el.innerHTML = '<div ecui="value:1">1</div><div ecui="value:2"></div><div ecui="value:3"></div>' + '<div ecui="value:4"></div><div ecui="value:5"></div><div ecui="value:6"></div>';
 
-        var control = ecui.create('Select', {id: 'select', main: el, value: '4', optionSize: 3});
+        var control = ecui.create('Select', {
+            id: 'select',
+            main: el,
+            value: '4',
+            optionSize: 3
+        });
         control.appendTo(document.body);
 
         uiut.MockEvents.mousedown(control.getMain());
@@ -108,7 +119,7 @@ describe('控件初始化', {
 });
 
 test('add/remove', {
-    '增加移除子选项': function () {
+    '增加移除子选项': function() {
         var control = ecui.get('select'),
             el = document.createElement('div');
 
@@ -118,7 +129,9 @@ test('add/remove', {
         value_of(items.length).should_be(3);
         value_of(items[2].getValue()).should_be('3');
 
-        control.add('4', 2, {value: '8'});
+        control.add('4', 2, {
+            value: '8'
+        });
         items = control.getItems();
         value_of(items.length).should_be(4);
         value_of(items[2].getValue()).should_be('8');
@@ -126,7 +139,7 @@ test('add/remove', {
 });
 
 test('getValue/getSelected/setValue', {
-    '选择子选项': function () {
+    '选择子选项': function() {
         var control = ecui.get('select');
 
         value_of(control.getValue()).should_be('');
@@ -141,7 +154,7 @@ test('getValue/getSelected/setValue', {
 });
 
 test('交互行为模拟', {
-    '弹出下拉框点击选择子选项': function () {
+    '弹出下拉框点击选择子选项': function() {
         var control = ecui.get('select'),
             el = control.getMain(),
             options = control.$getSection('Options'),
@@ -170,7 +183,7 @@ test('交互行为模拟', {
         value_of(control.getSelected()).should_be(item);
     },
 
-    '键盘操作': function () {
+    '键盘操作': function() {
         var control = ecui.get('select'),
             options = control.$getSection('Options');
 
@@ -234,7 +247,7 @@ test('交互行为模拟', {
         value_of(options.isShow()).should_be_false();
     },
 
-    '鼠标滚轮操作': function () {
+    '鼠标滚轮操作': function() {
         var control = ecui.get('select'),
             options = control.$getSection('Options');
 
@@ -247,34 +260,54 @@ test('交互行为模拟', {
         var items = control.getItems();
         value_of(control.getSelected()).should_be(null);
 
-        uiut.MockEvents.mousewheel(document, {detail: 3});
+        uiut.MockEvents.mousewheel(document, {
+            detail: 3
+        });
         value_of(control.getSelected()).should_be(items[0]);
 
-        uiut.MockEvents.mousewheel(document, {detail: 3});
+        uiut.MockEvents.mousewheel(document, {
+            detail: 3
+        });
         value_of(control.getSelected()).should_be(items[1]);
 
-        uiut.MockEvents.mousewheel(document, {detail: 3});
+        uiut.MockEvents.mousewheel(document, {
+            detail: 3
+        });
         value_of(control.getSelected()).should_be(items[2]);
 
-        uiut.MockEvents.mousewheel(document, {detail: 3});
+        uiut.MockEvents.mousewheel(document, {
+            detail: 3
+        });
         value_of(control.getSelected()).should_be(items[3]);
 
-        uiut.MockEvents.mousewheel(document, {detail: 3});
+        uiut.MockEvents.mousewheel(document, {
+            detail: 3
+        });
         value_of(control.getSelected()).should_be(items[3]);
 
-        uiut.MockEvents.mousewheel(document, {detail: -3});
+        uiut.MockEvents.mousewheel(document, {
+            detail: -3
+        });
         value_of(control.getSelected()).should_be(items[2]);
 
-        uiut.MockEvents.mousewheel(document, {detail: -3});
+        uiut.MockEvents.mousewheel(document, {
+            detail: -3
+        });
         value_of(control.getSelected()).should_be(items[1]);
 
-        uiut.MockEvents.mousewheel(document, {detail: -3});
+        uiut.MockEvents.mousewheel(document, {
+            detail: -3
+        });
         value_of(control.getSelected()).should_be(items[0]);
 
-        uiut.MockEvents.mousewheel(document, {detail: -3});
+        uiut.MockEvents.mousewheel(document, {
+            detail: -3
+        });
         value_of(control.getSelected()).should_be(items[0]);
 
-        uiut.MockEvents.mousewheel(document, {detail: -3});
+        uiut.MockEvents.mousewheel(document, {
+            detail: -3
+        });
         value_of(control.getSelected()).should_be(items[0]);
     }
 });

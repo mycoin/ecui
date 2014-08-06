@@ -10,6 +10,7 @@ function test(context, entries, base) {
 href = location.href;
 href = href.substring(href.lastIndexOf('?') + 1);
 href = href + '/' + href;
+document.write('<link rel="stylesheet" type="text/css" media="screen" href="../release/ecui.css" />');
 document.write('<link rel="stylesheet" type="text/css" media="screen" href="specs.css" />');
 document.write('<link rel="stylesheet" type="text/css" media="screen" href="' + href + '.css" />');
 document.write('<script type="text/javascript" src="tangram.js"></script>');

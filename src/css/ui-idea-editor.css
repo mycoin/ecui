@@ -1,0 +1,86 @@
+.ui-idea-editor {
+    width: 336px;
+    padding: 3px 3px 23px 3px;
+    background: #E4EAF9;
+}
+.ui-idea-editor-title {
+    margin-top: 5px;
+}
+.ui-idea-editor-title-air {
+    margin-top: 20px;
+}
+.ui-idea-editor-input, .ui-idea-editor-textarea {
+    position: relative;
+    width: 322px;
+    margin-bottom: 3px;
+    border: 1px solid #A8ADB6;
+}
+.ui-idea-editor-input input , 
+.ui-idea-editor-textarea textarea {
+    margin: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    line-height: 21px;
+}
+.ui-idea-editor-input {
+    height: 21px;
+}
+.ui-idea-editor-textarea {
+    height: 42px;
+}
+.ui-idea-editor-textarea-lines {
+    float: left;
+    width: 24px;
+    height: 100%;
+    background: #CACACA;
+    overflow: hidden;
+    color: #FFF;
+}
+.ui-idea-editor-textarea-lines span {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    line-height: 21px;
+}
+.ui-idea-editor-textarea textarea {
+    position: absolute;
+    resize: none;
+    overflow-y: scroll;
+}
+.ui-idea-editor-input-focus, 
+.ui-idea-editor-textarea-focus {
+    border: 1px solid #6E8AB8;
+}
+.ui-idea-editor-input-hover, 
+.ui-idea-editor-textarea-hover {
+    border: 1px solid #6E8AB8;
+}
+.ui-idea-editor-input-tip, 
+.ui-idea-editor-textarea-tip {
+    position: absolute;
+    top: -21px;
+    right: 0px;
+    height: 20px;
+    width: 150px;
+    text-align: right;
+    color: #999;
+}
+.ui-idea-editor-input-error, 
+.ui-idea-editor-textarea-error {
+    position: absolute;
+    height: 20px;
+    width: 250px;
+    right: 0px;
+    bottom: -21px;
+    text-align: right;
+    color: #F00;
+}
+.ui-idea-editor-button-adaptor {
+    display: block;
+    height: 19px;
+    width: 87px;
+    cursor: pointer;
+    overflow: hidden;
+    background: url(img/ecui.png?$Version$) 0px -240px;
+}

@@ -5,15 +5,20 @@ function before() {
 }
 
 function after() {
-    ecui.dispose(document.body);
-    document.body.removeChild(baidu.dom.g('common'));
+    // ecui.dispose(document.body);
+    // document.body.removeChild(baidu.dom.g('common'));
 }
 
 test('控件初始化', {
-    '<input>初始化，指定name,value无效': function () {
+    '<input>初始化，指定name,value无效': function() {
         var el = document.createElement('input');
         el.style.cssText = 'width:100px;height:20px';
-        var control = ecui.create(ecui.ui.InputControl, {parent: baidu.dom.g('common'), main: el, name: 'name', value: 'value'});
+        var control = ecui.create(ecui.ui.InputControl, {
+            parent: baidu.dom.g('common'),
+            main: el,
+            name: 'name',
+            value: 'value'
+        });
 
         value_of(control.getInput()).should_be(el);
         value_of(control.getWidth()).should_be(100);
@@ -22,10 +27,15 @@ test('控件初始化', {
         value_of(control.getValue()).should_be('');
     },
 
-    '<div>初始化，指定name,value有效': function () {
+    '<div>初始化，指定name,value有效': function() {
         var el = document.createElement('div');
         el.style.cssText = 'width:100px;height:20px';
-        var control = ecui.create(ecui.ui.InputControl, {parent: baidu.dom.g('common'), main: el, name: 'name', value: 'value'});
+        var control = ecui.create(ecui.ui.InputControl, {
+            parent: baidu.dom.g('common'),
+            main: el,
+            name: 'name',
+            value: 'value'
+        });
 
         value_of(control.getMain()).should_be(el);
         value_of(control.getWidth()).should_be(100);
@@ -34,11 +44,16 @@ test('控件初始化', {
         value_of(control.getValue()).should_be('value');
     },
 
-    '<div><input></div>初始化，指定name,value无效': function () {
+    '<div><input></div>初始化，指定name,value无效': function() {
         var el = document.createElement('div');
         el.style.cssText = 'width:100px;height:20px';
         el.innerHTML = '<input>'
-        var control = ecui.create(ecui.ui.InputControl, {parent: baidu.dom.g('common'), main: el, name: 'name', value: 'value'});
+        var control = ecui.create(ecui.ui.InputControl, {
+            parent: baidu.dom.g('common'),
+            main: el,
+            name: 'name',
+            value: 'value'
+        });
 
         value_of(control.getMain()).should_be(el);
         value_of(control.getInput()).should_be(el.firstChild);
@@ -50,13 +65,16 @@ test('控件初始化', {
 });
 
 test('焦点状态测试', {
-    '调用ecui.setFocused方法设置焦点': function () {
+    '调用ecui.setFocused方法设置焦点': function() {
         var el = document.createElement('input');
         el.style.cssText = 'width:100px;height:20px';
-        var control = ecui.create(ecui.ui.InputControl, {parent: baidu.dom.g('common'), main: el}),
+        var control = ecui.create(ecui.ui.InputControl, {
+                parent: baidu.dom.g('common'),
+                main: el
+            }),
             result = [];
 
-        control.onfocus = function (event) {
+        control.onfocus = function(event) {
             result.push('focus');
         };
 
@@ -64,13 +82,16 @@ test('焦点状态测试', {
         value_of(result).should_be(['focus']);
     },
 
-    '调用ecui.setFocused方法失去焦点': function () {
+    '调用ecui.setFocused方法失去焦点': function() {
         var el = document.createElement('input');
         el.style.cssText = 'width:100px;height:20px';
-        var control = ecui.create(ecui.ui.InputControl, {parent: baidu.dom.g('common'), main: el}),
+        var control = ecui.create(ecui.ui.InputControl, {
+                parent: baidu.dom.g('common'),
+                main: el
+            }),
             result = [];
 
-        control.onblur = function (event) {
+        control.onblur = function(event) {
             result.push('blur');
         };
 
@@ -79,13 +100,16 @@ test('焦点状态测试', {
         value_of(result).should_be(['blur']);
     },
 
-    '调用输入框的focus方法设置焦点': function () {
+    '调用输入框的focus方法设置焦点': function() {
         var el = document.createElement('input');
         el.style.cssText = 'width:100px;height:20px';
-        var control = ecui.create(ecui.ui.InputControl, {parent: baidu.dom.g('common'), main: el}),
+        var control = ecui.create(ecui.ui.InputControl, {
+                parent: baidu.dom.g('common'),
+                main: el
+            }),
             result = [];
 
-        control.onfocus = function (event) {
+        control.onfocus = function(event) {
             result.push('focus');
         };
 
@@ -93,13 +117,16 @@ test('焦点状态测试', {
         value_of(result).should_be(['focus']);
     },
 
-    '调用输入框的blur方法失去焦点': function () {
+    '调用输入框的blur方法失去焦点': function() {
         var el = document.createElement('input');
         el.style.cssText = 'width:100px;height:20px';
-        var control = ecui.create(ecui.ui.InputControl, {parent: baidu.dom.g('common'), main: el}),
+        var control = ecui.create(ecui.ui.InputControl, {
+                parent: baidu.dom.g('common'),
+                main: el
+            }),
             result = [];
 
-        control.onblur = function (event) {
+        control.onblur = function(event) {
             result.push('blur');
         };
 
@@ -108,17 +135,21 @@ test('焦点状态测试', {
         value_of(result).should_be(['blur']);
     },
 
-    '控件在失效状态无法得到焦点': function () {
+    '控件在失效状态无法得到焦点': function() {
         var el = document.createElement('input');
         el.style.cssText = 'width:100px;height:20px';
-        var control = ecui.create(ecui.ui.InputControl, {parent: baidu.dom.g('common'), main: el, disabled: true}),
+        var control = ecui.create(ecui.ui.InputControl, {
+                parent: baidu.dom.g('common'),
+                main: el,
+                disabled: true
+            }),
             result = [];
 
-        control.onfocus = function (event) {
+        control.onfocus = function(event) {
             result.push('focus');
         };
 
-        control.onblur = function (event) {
+        control.onblur = function(event) {
             result.push('blur');
         };
 
@@ -130,47 +161,49 @@ test('焦点状态测试', {
 });
 
 test('表单事件', {
-    '自动绑定初始化时的表单事件': function () {
-        var el = baidu.dom.g('common'),
-            result = [];
-        el.innerHTML = '<form id="form1"><input id="test" ecui="type:input-control;id:test"></form>';
+    '自动绑定初始化时的表单事件': function() {
+        var el = baidu.dom.g('common');
+        el.innerHTML = '<form id="form1"><input id="test" value="0" ecui="type:input-control;id:test" /></form>';
 
         ecui.init(el);
         var control = ecui.get('test');
-        control.onreset = function (event) {
-            result.push('reset');
-        };
+        control.setValue('1');
 
+        // debugger
         baidu.dom.g('form1').reset();
-        this.wait(function () {
-            value_of(result).should_be(['reset']);
+        this.wait(function() {
+            value_of(control.getValue()).should_be('0');
         }, 0);
     },
 
-    '改变控件位置时新表单自动绑定': function () {
+    '改变控件位置时新表单自动绑定': function() {
         var el = baidu.dom.g('common'),
             result = [];
         el.innerHTML = '<form id="form1"><input id="test" ecui="type:input-control;id:test"></form><form id="form2"></form>';
 
         ecui.init(el);
         var control = ecui.get('test');
-        control.onreset = function (event) {
+        control.onreset = function(event) {
             result.push('reset');
         };
 
         control.appendTo(baidu.dom.g('form2'));
         baidu.dom.g('form2').reset();
-        this.wait(function () {
+        this.wait(function() {
             value_of(result).should_be(['reset']);
         }, 0);
     }
 });
 
 test('失效状态控件', {
-    '普通输入框失效状态控制': function () {
+    '普通输入框失效状态控制': function() {
         var el = document.createElement('div');
         el.style.cssText = 'width:100px;height:20px';
-        var control = ecui.create(ecui.ui.InputControl, {parent: baidu.dom.g('common'), main: el, value: '<html>'});
+        var control = ecui.create(ecui.ui.InputControl, {
+            parent: baidu.dom.g('common'),
+            main: el,
+            value: '<html>'
+        });
 
         control.disable();
         value_of(ecui.dom.getParent(control.getInput())).should_be(null);
@@ -181,10 +214,15 @@ test('失效状态控件', {
         value_of(baidu.dom.children(control.getBody()).length).should_be(1);
     },
 
-    '密码输入框失效状态控制': function () {
+    '密码输入框失效状态控制': function() {
         var el = document.createElement('div');
         el.style.cssText = 'width:100px;height:20px';
-        var control = ecui.create(ecui.ui.InputControl, {parent: baidu.dom.g('common'), main: el, inputType: 'password', value: '<html>'});
+        var control = ecui.create(ecui.ui.InputControl, {
+            parent: baidu.dom.g('common'),
+            main: el,
+            inputType: 'password',
+            value: '<html>'
+        });
 
         control.disable();
         value_of(ecui.dom.getParent(control.getInput())).should_be(null);
@@ -195,10 +233,15 @@ test('失效状态控件', {
         value_of(baidu.dom.children(control.getBody()).length).should_be(1);
     },
 
-    '隐藏输入框设置不可用': function () {
+    '隐藏输入框设置不可用': function() {
         var el = document.createElement('div');
         el.style.cssText = 'width:100px;height:20px';
-        var control = ecui.create(ecui.ui.InputControl, {parent: baidu.dom.g('common'), main: el, hidden: true, value: '<html>'});
+        var control = ecui.create(ecui.ui.InputControl, {
+            parent: baidu.dom.g('common'),
+            main: el,
+            hidden: true,
+            value: '<html>'
+        });
 
         control.disable();
         value_of(ecui.dom.getParent(control.getInput())).should_be(control.getBody());
@@ -211,23 +254,29 @@ test('失效状态控件', {
 });
 
 test('setName/setValue', {
-    '动态改变名称': function () {
+    '动态改变名称': function() {
         var el = document.createElement('div');
         el.style.cssText = 'width:100px;height:20px';
-        var control = ecui.create(ecui.ui.InputControl, {parent: baidu.dom.g('common'), main: el});
+        var control = ecui.create(ecui.ui.InputControl, {
+            parent: baidu.dom.g('common'),
+            main: el
+        });
 
         value_of(control.getName()).should_be('');
         control.setName('test');
         value_of(control.getName()).should_be('test');
     },
 
-    '动态改变值不会触发onchange事件': function () {
+    '动态改变值不会触发onchange事件': function() {
         var el = document.createElement('div');
         el.style.cssText = 'width:100px;height:20px';
-        var control = ecui.create(ecui.ui.InputControl, {parent: baidu.dom.g('common'), main: el}),
+        var control = ecui.create(ecui.ui.InputControl, {
+                parent: baidu.dom.g('common'),
+                main: el
+            }),
             result = [];
 
-        control.onchange = function () {
+        control.onchange = function() {
             result = ['change']
         };
         value_of(control.getValue()).should_be('');

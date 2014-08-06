@@ -71,7 +71,7 @@ for (var i = 0; i < modes.length; i++) {
     el = document.createElement('div');
     el.id = 'specList';
     for (var j = 0; j < units.length; j++) {
-        html += '<a href="' + mode + '.html?' + units[j][0] + '" target="_blank" style=' + units[j][2] + '>' + units[j][1] + '</a>';
+        html += '<a href="' + mode + '.html?' + units[j][0] + '" style=' + units[j][2] + '>' + units[j][1] + '</a>';
     }
     el.innerHTML = html;
     document.body.appendChild(el);

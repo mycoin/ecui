@@ -1,0 +1,45 @@
+.ui-radio {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin: 0 0;
+    overflow: hidden;
+    background: url(img/ecui.png?$Version$) 0 -18px no-repeat;
+    vertical-align: middle;
+    *display: inline;
+    zoom: 1;
+}
+.ui-radio-hover {
+    background-position: -17px -18px;
+}
+.ui-radio-checked {
+    background-position: -34px -18px;
+}
+.ui-radio-checked-hover {
+    background-position: -51px -18px;
+}
+.ui-radio-disabled {
+    background-position: -68px -18px;
+}
+.ui-radio-checked-disabled {
+    background-position: -85px -18px;
+}
+.ui-score {
+    display: inline-block;
+    cursor: default;
+    *display: inline;
+    *zoom: 1;
+}
+.ui-score-item {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    vertical-align: middle;
+    overflow: hidden;
+    background: url(img/ecui.png?$Version$) -32px -340px no-repeat;
+    *display: inline;
+    *zoom: 1;
+}
+.ui-score-item-marked {
+    background-position: -17px -340px;
+}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <title>ECUI Theme - Base control</title>
-    <link rel="stylesheet" type="text/css" href="../style/ecui-2.1-debug.css" />
+    <link rel="stylesheet" type="text/css" href="../style/ecui-2.0.2.debug.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="../css/example.css" />
 </head>
 <body>
@@ -12,13 +12,28 @@
 </div>
 <div class="content">
     <h3>单选日历</h3>
-    <div style="margin:20px" ecui="type:calendar;start:2012-12-0;id:cal;tip:false;end:2012-12-30;name:hello;date:2012-12-9"></div>
+    <div style="margin:20px" ecui="type:calendar;start:2012-12-1;id:cal;tip:false;end:2012-12-30;name:hello;date:2012-12-9"></div>
 </div>
+
+<div class="content">
+    <h3>单选日历</h3>
+    <div ecui="
+    type     :multi-calendar;
+    id       :dateRange;
+    beginname:beginDate;endname:endDate;
+    bdate    :2012/12/12;edate:2033-12-12;
+    typename : dateType;
+    exact    : true;
+    remind   :请选择时间范围
+"></div>
+</div>
+
+
 <div class="footer">
     <span>2012 Baidu UE &amp; Ebiz</span>
 </div>
 
-    <script type="text/javascript" src="../release/ecui-2.1-debug.js"></script>
-    <script type="text/javascript" src="../release/ecui-ext-2.1-debug.js"></script>
+    <script type="text/javascript" src="../release/ecui-2.0.1-debug.js"></script>
+    <script type="text/javascript" src="../release/ecui-ext-2.0.1-debug.js"></script>
 </body>
 </html>
