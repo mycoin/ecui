@@ -1,3 +1,20 @@
-<script type="text/javascript">
-location.href="spec/"
+<link rel="stylesheet" href="dist/ecui.css">
+<button ecui="type:button">
+    按钮
+</button>
+
+<input ecui="type:radio" name="city" value="beijing" checked="checked" type="radio">
+<input ecui="type:radio" name="city" value="beijing" checked="checked" type="radio">
+
+<select ecui="type:select" name="sex">
+        <option value="male" selected="selected">男</option>
+        <option value="female">女</option>
+</select>
+
+事实上
+<div type="type:pager;pageSize:10;maxNum:40" class="ui-pager"></div>
+<script src="dist/ecui.js"></script>
+<script src="dist/ecui-ext.js"></script>
+<script>
+ecui.init();
 </script>

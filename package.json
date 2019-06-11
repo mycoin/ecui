@@ -1,26 +1,30 @@
 {
   "name": "ecui",
   "description": "Enterprise Classic User Interface.",
-  "version": "1.0.1",
+  "version": "2.0.1",
   "homepage": "https://github.com/mycoin/ecui",
   "keywords": [
       "UI",
       "Library",
+      "Ecomfe",
       "Enterprise"
   ],
   "author": {
       "name": "mycoin",
       "email": "nqliujiangtao@gmail.com"
   },
-  "main": "src/validator.js",
+  "main": "dist/ecui.js",
   "bugs": {
       "url": "https://github.com/mycoin/ecui/issues"
   },
   "repository": {
       "type": "git",
-      "url": "https://github.com/mycoin/ecui"
+      "url": "git@github.com:mycoin/ecui.git"
   },
-
+  "scripts": {
+      "dev": "grunt server",
+      "build": "grunt build"
+  },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-concat": "^0.5.0",

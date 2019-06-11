@@ -16,7 +16,7 @@ module.exports = function(grunt) {
             },
             'js': {
                 files: {
-                    'release/ecui.js': [
+                    'dist/ecui.js': [
                         "src/js/ecui.js",
                         "src/js/adapter.js",
                         "src/js/core.js",
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
                         "src/js/messagebox.js"
                     ],
 
-                    'release/ecui-ext.js': [
+                    'dist/ecui-ext.js': [
                         "src/js/ext/input.js",
                         "src/js/ext/pager.js",
                         "src/js/ext/calendar.js",
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
             },
             'css': {
                 files: {
-                    'release/ecui.css': [
+                    'dist/ecui.css': [
                         "src/css/ui-button.css",
                         "src/css/ui-input.css",
                         "src/css/ui-scrollbar.css",
@@ -88,8 +88,8 @@ module.exports = function(grunt) {
         'uglify': {
             'release': {
                 files: {
-                    'release/ecui.min.js': ['release/ecui.js'],
-                    'release/ecui-ext.min.js': ['release/ecui-ext.js']
+                    'dist/ecui.min.js': ['dist/ecui.js'],
+                    'dist/ecui-ext.min.js': ['dist/ecui-ext.js']
                 }
             }
         },
@@ -103,7 +103,7 @@ module.exports = function(grunt) {
                     src: [
                         'img/**',
                     ],
-                    dest: 'release/'
+                    dest: 'dist/'
                 }]
             }
         },
@@ -114,7 +114,7 @@ module.exports = function(grunt) {
                     port: 8080,
                     hostname: require('os').hostname(),
                     base: '.',
-                    keepalive: false,
+                    keepalive: true,
                     open: false,
                     bin: 'php'
                 }
@@ -135,8 +135,8 @@ module.exports = function(grunt) {
                 },
 
                 files: [
-                    'release/{,*/}*.js',
-                    'release/{,*/}*.css',
+                    'dist/{,*/}*.js',
+                    'dist/{,*/}*.css',
                 ]
             },
 
@@ -159,9 +159,11 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', function() {
         grunt.log.subhead('Please use one of the following commands:');
+        grunt.log.writeln('');
         grunt.log.writeln('• grunt server  启动PHP服务器.');
         grunt.log.writeln('• grunt watch   监视源并自动编译.');
         grunt.log.writeln('• grunt build   基础编译.');
+
         grunt.log.writeln('\n\nsee all tasks `grunt --verbose`');
     });
 
